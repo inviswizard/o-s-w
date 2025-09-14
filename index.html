@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Space</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-pink: #f8d7da;
+            --secondary-lavender: #e7d3f4;
+            --soft-peach: #ffeaa7;
+            --mint-green: #d1f2eb;
+            --soft-blue: #d4f1f4;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --white: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --error: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--primary-pink), var(--soft-blue));
+            min-height: 100vh;
+        }
+
+        /* Loading overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            display: none;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--text-light);
+            border-top: 5px solid var(--primary-pink);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Auth Screen */
+        .auth-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .auth-card {
+            background: var(--white);
+            border-radius: 25px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 20px 60px var(--shadow);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .auth-card h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary-pink), var(--secondary-lavender));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            overflow: hidden;
+            background: #f0f0f0;
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+        }
+
+        .auth-tab.active {
+            background: var(--primary-pink);
+            color: var(--text-dark);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-pink);
+        }
+
+        .password-toggle {
+            position: relative;
+        }
+
+        .password-toggle button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .avatar-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .avatar-preview {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-pink);
+            object-fit: cover;
+            background: var(--mint-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-input {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-input-button {
+            background: var(--secondary-lavender);
+            color: var(--text-dark);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .file-input-button:hover {
+            background: var(--primary-pink);
+        }
+
+        .google-signin {
+            background: #4285f4;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .google-signin:hover {
+            background: #3367d6;
+            transform: translateY(-2px);
+        }
+
+        .divider {
+            margin: 1.5rem 0;
+            text-align: center;
+            color: var(--text-light);
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e0e0e0;
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 1rem;
+        }
+
+        /* Room Management */
+        .room-options {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .room-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .create-room-btn {
+            background: var(--secondary-lavender);
+            color: var(--text-dark);
+        }
+
+        .join-room-btn {
+            background: var(--primary-pink);
+            color: var(--text-dark);
+        }
+
+        .room-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px var(--shadow);
+        }
+
+        .room-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .room-input-container {
+            margin-top: 2rem;
+            display: none;
+        }
+
+        .room-input-container.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .room-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--text-light);
+            border-radius: 15px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .room-input:focus {
+            outline: none;
+            border-color: var(--primary-pink);
+        }
+
+        .room-code-display {
+            background: var(--mint-green);
+            padding: 1rem;
+            border-radius: 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+        }
+
+        .join-request-status {
+            background: var(--warning);
+            color: white;
+            padding: 1rem;
+            border-radius: 15px;
+            margin-top: 1rem;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .alert.error {
+            background: #ffeaea;
+            color: var(--error);
+            border: 1px solid var(--error);
+        }
+
+        .alert.success {
+            background: #eafaf1;
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .alert.warning {
+            background: #fff3cd;
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .btn {
+            background: var(--secondary-lavender);
+            color: var(--text-dark);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background: var(--primary-pink);
+            transform: translateY(-2px);
+        }
+
+        .btn.primary {
+            background: var(--primary-pink);
+        }
+
+        .btn.primary:hover {
+            background: var(--secondary-lavender);
+        }
+
+        .btn.danger {
+            background: var(--error);
+            color: white;
+        }
+
+        .btn.danger:hover {
+            background: #c0392b;
+        }
+
+        .auth-link {
+            margin-top: 1rem;
+            color: var(--text-light);
+        }
+
+        .auth-link a {
+            color: var(--primary-pink);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .auth-link a:hover {
+            color: var(--secondary-lavender);
+        }
+
+        /* Navigation and other styles remain the same as before */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 20px var(--shadow);
+            display: none;
+        }
+
+        nav.active {
+            display: block;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu li {
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-menu li:hover, .nav-menu li.active {
+            background: var(--secondary-lavender);
+            transform: translateY(-2px);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 2rem 2rem;
+            min-height: 100vh;
+            display: none;
+        }
+
+        .container.active {
+            display: block;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 1rem 0;
+            box-shadow: 0 10px 30px var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            font-size: 1.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .auth-card {
+                padding: 2rem;
+            }
+
+            .room-options {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-menu {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .nav-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .container {
+                padding: 120px 1rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Auth Screen -->
+    <div id="authScreen" class="auth-container">
+        <div class="auth-card">
+            <h1>Our Space 💕</h1>
+            <p>A private sanctuary for couples to connect, share memories, and stay close no matter the distance.</p>
+            
+            <!-- Auth Tabs -->
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="showTab('login')">Login</button>
+                <button class="auth-tab" onclick="showTab('register')">Register</button>
+            </div>
+
+            <!-- Login Form -->
+            <div id="loginForm" class="auth-form active">
+                <button class="google-signin" onclick="loginWithGoogle()">
+                    <svg width="18" height="18" viewBox="0 0 18 18">
+                        <path fill="#4285F4" d="m18 9.205c0-.639-.057-1.252-.164-1.841H9.212v3.481h4.927c-.214 1.12-.809 2.07-1.723 2.708v2.245h2.786C16.658 14.205 18 11.917 18 9.205z"/>
+                        <path fill="#34A853" d="m9.212 18c2.341 0 4.301-.768 5.734-2.078l-2.786-2.245c-.776.523-1.769.828-2.948.828-2.264 0-4.184-1.526-4.867-3.582H1.407v2.332C2.828 15.935 5.762 18 9.212 18z"/>
+                        <path fill="#FBBC05" d="m4.345 10.923c-.174-.523-.272-1.078-.272-1.651 0-.573.098-1.128.272-1.651V5.289H1.407C.513 7.069 0 8.075 0 9.272s.513 2.203 1.407 3.983l2.938-2.332z"/>
+                        <path fill="#EA4335" d="m9.212 3.577c1.278 0 2.424.437 3.325 1.293l2.494-2.494C13.507.787 11.555 0 9.212 0 5.762 0 2.828 2.065 1.407 5.745l2.938 2.332c.683-2.056 2.603-3.5 4.867-3.5z"/>
+                    </svg>
+                    Continue with Google
+                </button>
+
+                <div class="divider">
+                    <span>or</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your Gmail address" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <div class="password-toggle">
+                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                        <button type="button" onclick="togglePassword('loginPassword')">👁️</button>
+                    </div>
+                </div>
+                
+                <button class="btn primary" onclick="loginUser()">Login</button>
+                
+                <div class="auth-link">
+                    Don't have an account? <a href="#" onclick="showTab('register')">Register here</a>
+                </div>
+            </div>
+
+            <!-- Register Form -->
+            <div id="registerForm" class="auth-form">
+                <div class="form-group">
+                    <label for="registerEmail">Gmail Address</label>
+                    <input type="email" id="registerEmail" placeholder="Enter your Gmail address" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <div class="password-toggle">
+                        <input type="password" id="registerPassword" placeholder="Create a strong password" required>
+                        <button type="button" onclick="togglePassword('registerPassword')">👁️</button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <div class="password-toggle">
+                        <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                        <button type="button" onclick="togglePassword('confirmPassword')">👁️</button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="displayName">Display Name</label>
+                    <input type="text" id="displayName" placeholder="How should we call you?" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Profile Picture</label>
+                    <div class="avatar-upload">
+                        <div class="avatar-preview" id="avatarPreview">👤</div>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="avatarInput" class="file-input" accept="image/*">
+                            <button type="button" class="file-input-button" onclick="document.getElementById('avatarInput').click()">
+                                Upload Photo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn primary" onclick="registerUser()">Create Account</button>
+                
+                <div class="auth-link">
+                    Already have an account? <a href="#" onclick="showTab('login')">Login here</a>
+                </div>
+            </div>
+
+            <!-- Room Management (shown after login) -->
+            <div id="roomManagement" style="display: none;">
+                <div class="room-options">
+                    <button class="room-btn create-room-btn" onclick="showCreateRoom()" id="createRoomBtn">Create Room</button>
+                    <button class="room-btn join-room-btn" onclick="showJoinRoom()" id="joinRoomBtn">Join Room</button>
+                </div>
+
+                <div id="createRoomContainer" class="room-input-container">
+                    <p>Your room code:</p>
+                    <div id="roomCodeDisplay" class="room-code-display"></div>
+                    <p style="font-size: 0.9rem; color: var(--text-light);">Share this code with your partner</p>
+                    <button class="btn primary" onclick="createRoom()">Create Our Space</button>
+                </div>
+
+                <div id="joinRoomContainer" class="room-input-container">
+                    <input type="text" id="roomCodeInput" class="room-input" placeholder="Enter Room Code" maxlength="8">
+                    <button class="btn primary" onclick="requestToJoin()" id="joinSubmitBtn">Request to Join</button>
+                    
+                    <div id="joinRequestStatus" class="join-request-status" style="display: none;">
+                        <p>Join request sent! Waiting for approval from room admin...</p>
+                        <button class="btn small" onclick="cancelJoinRequest()">Cancel Request</button>
+                    </div>
+                </div>
+
+                <div id="alertContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="mainNav">
+        <div class="nav-content">
+            <ul class="nav-menu">
+                <li class="nav-item active" data-page="home">🏠 Home</li>
+                <li class="nav-item" data-page="memories">📸 Memories</li>
+                <li class="nav-item" data-page="notes">📝 Notes</li>
+                <li class="nav-item" data-page="links">🔗 Links</li>
+                <li class="nav-item" data-page="members">👥 Members</li>
+                <li class="nav-item" data-page="chat">💬 Chat</li>
+            </ul>
+            <div class="user-info">
+                <img id="userAvatar" class="user-avatar" src="" alt="User">
+                <span id="userNameNav"></span>
+                <button class="btn danger" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div id="mainContainer" class="container">
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <div class="card">
+                <h2>Welcome to Our Space 💕</h2>
+                <p id="welcomeMessage">Start creating beautiful memories together!</p>
+            </div>
+        </div>
+
+        <!-- Other pages would go here -->
+        <div id="memories" class="page">
+            <div class="card">
+                <h2>Our Memories 📸</h2>
+                <p>Share your special moments here</p>
+            </div>
+        </div>
+
+        <div id="notes" class="page">
+            <div class="card">
+                <h2>Sweet Notes 📝</h2>
+                <p>Leave loving messages for each other</p>
+            </div>
+        </div>
+
+        <div id="links" class="page">
+            <div class="card">
+                <h2>Important Links 🔗</h2>
+                <p>Save websites and resources that matter to you</p>
+            </div>
+        </div>
+
+        <div id="members" class="page">
+            <div class="card">
+                <h2>Room Members 👥</h2>
+                <p>Manage who has access to your space</p>
+            </div>
+        </div>
+
+        <div id="chat" class="page">
+            <div class="card">
+                <h2>Private Chat 💬</h2>
+                <p>Your private conversation space</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentUser = null;
+        let currentRoom = null;
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            checkExistingSession();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Avatar upload
+            document.getElementById('avatarInput').addEventListener('change', handleAvatarUpload);
+            
+            // Navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', () => navigateTo(item.dataset.page));
+            });
+        }
+
+        function showTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.auth-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update forms
+            document.querySelectorAll('.auth-form').forEach(form => {
+                form.classList.remove('active');
+            });
+            document.getElementById(tabName + 'Form').classList.add('active');
+        }
+
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const button = input.nextElementSibling;
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                button.textContent = '🙈';
+            } else {
+                input.type = 'password';
+                button.textContent = '👁️';
+            }
+        }
+
+        function handleAvatarUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('avatarPreview');
+                    preview.innerHTML = `<img src="${e.target.result}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function showLoading() {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+
+        function showAlert(message, type = 'error') {
+            const alertContainer = document.getElementById('alertContainer');
+            const alert = document.createElement('div');
+            alert.className = `alert ${type}`;
+            alert.textContent = message;
+            alertContainer.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
+
+        async function registerUser() {
+            const email = document.getElementById('registerEmail').value.trim();
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const displayName = document.getElementById('displayName').value.trim();
+            
+            // Validation
+            if (!email || !password || !confirmPassword || !displayName) {
+                showAlert('Please fill in all fields');
+                return;
+            }
+            
+            if (!email.endsWith('@gmail.com')) {
+                showAlert('Please use a Gmail address');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showAlert('Passwords do not match');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showAlert('Password must be at least 6 characters long');
+                return;
+            }
+            
+            showLoading();
+            
+            try {
+                // Check if user already exists
+                const existingUsers = JSON.parse(localStorage.getItem('ourspace_users') || '[]');
+                if (existingUsers.find(user => user.email === email)) {
+                    throw new Error('An account with this email already exists');
+                }
+                
+                // Get avatar data
+                const avatarInput = document.getElementById('avatarInput');
+                let avatarData = null;
+                if (avatarInput.files[0]) {
+                    avatarData = await fileToBase64(avatarInput.files[0]);
+                }
+                
+                // Create new user
+                const newUser = {
+                    id: generateUserId(),
+                    email: email,
+                    password: await hashPassword(password), // In production, use proper hashing
+                    displayName: displayName,
+                    avatar: avatarData,
+                    createdAt: new Date().toISOString(),
+                    rooms: []
+                };
+                
+                // Save user
+                existingUsers.push(newUser);
+                localStorage.setItem('ourspace_users', JSON.stringify(existingUsers));
+                
+                // Login the user
+                currentUser = newUser;
+                localStorage.setItem('ourspace_current_user', JSON.stringify(newUser));
+                
+                showAlert('Account created successfully!', 'success');
+                showRoomManagement();
+                
+            } catch (error) {
+                showAlert(error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function loginUser() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!email || !password) {
+                showAlert('Please enter both email and password');
+                return;
+            }
+            
+            if (!email.endsWith('@gmail.com')) {
+                showAlert('Please use a Gmail address');
+                return;
+            }
+            
+            showLoading();
+            
+            try {
+                const existingUsers = JSON.parse(localStorage.getItem('ourspace_users') || '[]');
+                const user = existingUsers.find(u => u.email === email);
+                
+                if (!user) {
+                    throw new Error('No account found with this email address');
+                }
+                
+                const passwordHash = await hashPassword(password);
+                if (user.password !== passwordHash) {
+                    throw new Error('Invalid password');
+                }
+                
+                // Login successful
+                currentUser = user;
+                localStorage.setItem('ourspace_current_user', JSON.stringify(user));
+                
+                showAlert('Login successful!', 'success');
+                showRoomManagement();
+                
+            } catch (error) {
+                showAlert(error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        function loginWithGoogle() {
+            showAlert('Google Sign-In would be implemented with Firebase Auth in production', 'warning');
+        }
+
+        function checkExistingSession() {
+            const savedUser = localStorage.getItem('ourspace_current_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                showRoomManagement();
+            }
+        }
+
+        function showRoomManagement() {
+            document.querySelectorAll('.auth-form').forEach(form => {
+                form.style.display = 'none';
+            });
+            document.querySelector('.auth-tabs').style.display = 'none';
+            document.getElementById('roomManagement').style.display = 'block';
+        }
+
+        function showCreateRoom() {
+            document.getElementById('createRoomContainer').classList.add('active');
+            document.getElementById('joinRoomContainer').classList.remove('active');
+            
+            // Generate room code
+            const roomCode = generateRoomCode();
+            document.getElementById('roomCodeDisplay').textContent = roomCode;
+        }
+
+        function showJoinRoom() {
+            document.getElementById('joinRoomContainer').classList.add('active');
+            document.getElementById('createRoomContainer').classList.remove('active');
+        }
+
+        async function createRoom() {
+            const roomCode = document.getElementById('roomCodeDisplay').textContent;
+            
+            showLoading();
+            
+            try {
+                const newRoom = {
+                    id: generateRoomId(),
+                    code: roomCode,
+                    adminId: currentUser.id,
+                    adminEmail: currentUser.email,
+                    members: [{
+                        userId: currentUser.id,
+                        email: currentUser.email,
+                        displayName: currentUser.displayName,
+                        avatar: currentUser.avatar,
+                        role: 'admin',
+                        joinedAt: new Date().toISOString()
+                    }],
+                    createdAt: new Date().toISOString(),
+                    joinRequests: []
+                };
+                
+                // Save room
+                const existingRooms = JSON.parse(localStorage.getItem('ourspace_rooms') || '[]');
+                existingRooms.push(newRoom);
+                localStorage.setItem('ourspace_rooms', JSON.stringify(existingRooms));
+                
+                // Update user's rooms
+                currentUser.rooms.push(newRoom.id);
+                const users = JSON.parse(localStorage.getItem('ourspace_users') || '[]');
+                const userIndex = users.findIndex(u => u.id === currentUser.id);
+                if (userIndex !== -1) {
+                    users[userIndex] = currentUser;
+                    localStorage.setItem('ourspace_users', JSON.stringify(users));
+                }
+                localStorage.setItem('ourspace_current_user', JSON.stringify(currentUser));
+                
+                currentRoom = newRoom;
+                localStorage.setItem('ourspace_current_room', JSON.stringify(newRoom));
+                
+                showAlert('Room created successfully!', 'success');
+                enterRoom();
+                
+            } catch (error) {
+                showAlert(error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function requestToJoin() {
+            const roomCode = document.getElementById('roomCodeInput').value.trim().toUpperCase();
+            
+            if (!roomCode) {
+                showAlert('Please enter a room code');
+                return;
+            }
+            
+            showLoading();
+            
+            try {
+                const existingRooms = JSON.parse(localStorage.getItem('ourspace_rooms') || '[]');
+                const room = existingRooms.find(r => r.code === roomCode);
+                
+                if (!room) {
+                    throw new Error('Room not found. Please check the room code.');
+                }
+                
+                // Check if user is already a member
+                if (room.members.find(m => m.userId === currentUser.id)) {
+                    throw new Error('You are already a member of this room');
+                }
+                
+                // Check if there's already a pending request
+                if (room.joinRequests.find(r => r.userId === currentUser.id)) {
+                    throw new Error('You already have a pending join request for this room');
+                }
+                
+                // Add join request
+                room.joinRequests.push({
+                    userId: currentUser.id,
+                    email: currentUser.email,
+                    displayName: currentUser.displayName,
+                    avatar: currentUser.avatar,
+                    requestedAt: new Date().toISOString()
+                });
+                
+                // Save updated room
+                const roomIndex = existingRooms.findIndex(r => r.id === room.id);
+                existingRooms[roomIndex] = room;
+                localStorage.setItem('ourspace_rooms', JSON.stringify(existingRooms));
+                
+                document.getElementById('joinRequestStatus').style.display = 'block';
+                document.getElementById('joinSubmitBtn').disabled = true;
+                
+                showAlert('Join request sent! Waiting for admin approval.', 'success');
+                
+            } catch (error) {
+                showAlert(error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        function enterRoom() {
+            document.getElementById('authScreen').style.display = 'none';
+            document.getElementById('mainNav').classList.add('active');
+            document.getElementById('mainContainer').classList.add('active');
+            
+            // Update nav user info
+            document.getElementById('userNameNav').textContent = currentUser.displayName;
+            if (currentUser.avatar) {
+                document.getElementById('userAvatar').src = currentUser.avatar;
+            }
+        }
+
+        function navigateTo(page) {
+            // Update active nav item
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`[data-page="${page}"]`).classList.add('active');
+            
+            // Show corresponding page
+            document.querySelectorAll('.page').forEach(p => {
+                p.classList.remove('active');
+            });
+            document.getElementById(page).classList.add('active');
+        }
+
+        function logout() {
+            localStorage.removeItem('ourspace_current_user');
+            localStorage.removeItem('ourspace_current_room');
+            currentUser = null;
+            currentRoom = null;
+            
+            // Reset UI
+            document.getElementById('authScreen').style.display = 'block';
+            document.getElementById('mainNav').classList.remove('active');
+            document.getElementById('mainContainer').classList.remove('active');
+            
+            // Reset forms
+            document.querySelectorAll('.auth-form').forEach(form => {
+                form.style.display = 'none';
+            });
+            document.querySelector('.auth-tabs').style.display = 'flex';
+            document.getElementById('loginForm').classList.add('active');
+            document.getElementById('roomManagement').style.display = 'none';
+            
+            showAlert('Logged out successfully', 'success');
+        }
+
+        // Utility functions
+        function generateUserId() {
+            return 'user_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+        }
+
+        function generateRoomId() {
+            return 'room_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+        }
+
+        function generateRoomCode() {
+            return Math.random().toString(36).substr(2, 8).toUpperCase();
+        }
+
+        async function hashPassword(password) {
+            // Simple hash for demo - use proper bcrypt in production
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password + 'ourspace_salt');
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+    </script>
+</body>
+</html>
