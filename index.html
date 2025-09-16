@@ -79,7 +79,7 @@
             padding: 3rem;
             text-align: center;
             box-shadow: 0 20px 60px var(--shadow);
-            max-width: 500px;
+            max-width: 600px;
             width: 100%;
         }
 
@@ -96,19 +96,18 @@
             display: flex;
             margin-bottom: 2rem;
             border-radius: 15px;
-            background: #f8f9fa;
-            padding: 0.5rem;
+            overflow: hidden;
+            background: #f0f0f0;
         }
 
         .auth-tab {
             flex: 1;
             padding: 1rem;
-            border: none;
-            background: none;
-            border-radius: 10px;
             cursor: pointer;
-            font-weight: 600;
             transition: all 0.3s ease;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
         }
 
         .auth-tab.active {
@@ -118,149 +117,100 @@
 
         .auth-form {
             display: none;
-            text-align: left;
         }
 
         .auth-form.active {
             display: block;
-            animation: fadeIn 0.3s ease;
         }
 
-        /* Onboarding Modal */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            display: none;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 2rem;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .onboarding-step {
-            display: none;
-            text-align: center;
-        }
-
-        .onboarding-step.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .onboarding-step h2 {
-            color: var(--text-dark);
+        .form-group {
             margin-bottom: 1rem;
+            text-align: left;
         }
 
-        .onboarding-step img {
-            max-width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 15px;
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-pink);
+        }
+
+        .password-toggle {
+            position: relative;
+        }
+
+        .password-toggle button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .avatar-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
             margin: 1rem 0;
         }
 
-        /* Notification Bell */
-        .notification-bell {
-            position: relative;
-            cursor: pointer;
-            padding: 0.5rem;
+        .avatar-preview {
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            background: var(--white);
-            border: 2px solid var(--primary-pink);
-            transition: all 0.3s ease;
-        }
-
-        .notification-bell:hover {
-            background: var(--primary-pink);
-        }
-
-        .notification-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: var(--error);
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
+            border: 3px solid var(--primary-pink);
+            object-fit: cover;
+            background: var(--mint-green);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
-            font-weight: bold;
+            font-size: 2rem;
         }
 
-        .notification-dropdown {
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-input {
             position: absolute;
-            top: 100%;
-            right: 0;
-            background: var(--white);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px var(--shadow);
-            min-width: 300px;
-            z-index: 1000;
-            display: none;
-            margin-top: 0.5rem;
+            left: -9999px;
         }
 
-        .notification-dropdown.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .notification-item {
-            padding: 1rem;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .notification-item:last-child {
-            border-bottom: none;
-        }
-
-        .notification-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .btn-small {
-            padding: 0.3rem 0.8rem;
+        .file-input-button {
+            background: var(--secondary-lavender);
+            color: var(--text-dark);
             border: none;
-            border-radius: 10px;
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
         }
 
-        .btn-accept {
-            background: var(--success);
-            color: white;
-        }
-
-        .btn-decline {
-            background: var(--error);
-            color: white;
+        .file-input-button:hover {
+            background: var(--primary-pink);
         }
 
         /* Room Management */
@@ -294,6 +244,12 @@
         .room-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 20px var(--shadow);
+        }
+
+        .room-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
         }
 
         .room-input-container {
@@ -333,7 +289,7 @@
             margin-bottom: 1rem;
         }
 
-        .pending-status {
+        .join-request-status {
             background: var(--warning);
             color: white;
             padding: 1rem;
@@ -366,61 +322,61 @@
             border: 1px solid var(--warning);
         }
 
-        /* Form inputs */
-        .form-group {
-            margin-bottom: 1rem;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
+        .btn {
+            background: var(--secondary-lavender);
             color: var(--text-dark);
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 15px;
             font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-pink);
-        }
-
-        .file-upload {
-            position: relative;
-            display: inline-block;
+            font-weight: 600;
             cursor: pointer;
-            background: var(--mint-green);
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background: var(--primary-pink);
+            transform: translateY(-2px);
+        }
+
+        .btn.primary {
+            background: var(--primary-pink);
+        }
+
+        .btn.primary:hover {
+            background: var(--secondary-lavender);
+        }
+
+        .btn.danger {
+            background: var(--error);
+            color: white;
+        }
+
+        .btn.danger:hover {
+            background: #c0392b;
+        }
+
+        .btn.small {
+            width: auto;
             padding: 0.5rem 1rem;
-            border-radius: 10px;
-            border: 2px dashed var(--primary-pink);
-            text-align: center;
-            width: 100%;
-            margin-top: 0.5rem;
+            font-size: 0.9rem;
         }
 
-        .file-upload input[type="file"] {
-            position: absolute;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
+        .auth-link {
+            margin-top: 1rem;
+            color: var(--text-light);
         }
 
-        .image-preview {
-            max-width: 200px;
-            max-height: 200px;
-            border-radius: 10px;
-            margin-top: 0.5rem;
+        .auth-link a {
+            color: var(--primary-pink);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .auth-link a:hover {
+            color: var(--secondary-lavender);
         }
 
         /* Navigation */
@@ -461,11 +417,28 @@
             border-radius: 20px;
             transition: all 0.3s ease;
             font-weight: 500;
+            position: relative;
         }
 
         .nav-menu li:hover, .nav-menu li.active {
             background: var(--secondary-lavender);
             transform: translateY(-2px);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--error);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
         }
 
         .user-info {
@@ -478,47 +451,9 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: var(--primary-pink);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: var(--text-dark);
+            object-fit: cover;
         }
 
-        .room-info {
-            background: var(--mint-green);
-            padding: 0.5rem 1rem;
-            border-radius: 15px;
-            font-size: 0.9rem;
-            font-weight: bold;
-        }
-
-        .settings-btn, .exit-room-btn {
-            background: var(--text-light);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 15px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .exit-room-btn {
-            background: var(--error);
-        }
-
-        .settings-btn:hover {
-            background: var(--text-dark);
-        }
-
-        .exit-room-btn:hover {
-            background: #c0392b;
-            transform: translateY(-1px);
-        }
-
-        /* Main Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -531,7 +466,6 @@
             display: block;
         }
 
-        /* Page Sections */
         .page {
             display: none;
             animation: fadeIn 0.5s ease-in;
@@ -546,7 +480,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Cards */
         .card {
             background: var(--white);
             border-radius: 20px;
@@ -566,222 +499,180 @@
             font-size: 1.8rem;
         }
 
-        .card h3 {
-            margin-bottom: 0.5rem;
-            color: var(--text-dark);
-            font-size: 1.3rem;
+        /* Memory and Note cards */
+        .memory-grid, .note-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
 
-        .btn {
-            background: var(--secondary-lavender);
-            color: var(--text-dark);
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 15px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 0.25rem;
-        }
-
-        .btn:hover {
-            background: var(--primary-pink);
-            transform: translateY(-2px);
-        }
-
-        .btn.primary {
-            background: var(--primary-pink);
-        }
-
-        .btn.primary:hover {
-            background: var(--secondary-lavender);
-        }
-
-        .btn.danger {
-            background: var(--error);
-            color: white;
-        }
-
-        .btn.danger:hover {
-            background: #c0392b;
-        }
-
-        /* Content items */
-        .content-item {
+        .memory-card, .note-card {
             background: var(--white);
             border-radius: 15px;
             padding: 1.5rem;
-            margin: 1rem 0;
-            box-shadow: 0 5px 20px var(--shadow);
-            position: relative;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: transform 0.3s ease;
         }
 
-        .content-item h4 {
-            color: var(--text-dark);
-            margin-bottom: 0.5rem;
+        .memory-card:hover, .note-card:hover {
+            transform: translateY(-3px);
         }
 
-        .content-item .meta {
-            font-size: 0.9rem;
-            color: var(--text-light);
+        .memory-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
             margin-bottom: 1rem;
         }
 
-        .content-item .actions {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
+        .memory-meta, .note-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .action-buttons {
             display: flex;
             gap: 0.5rem;
         }
 
-        .content-item .image {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            margin: 1rem 0;
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
         }
 
-        /* Member management */
-        .member-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
+        .action-btn:hover {
+            background: var(--primary-pink);
+            color: var(--text-dark);
+        }
+
+        /* Member cards */
+        .member-card {
             background: var(--white);
             border-radius: 15px;
-            margin: 0.5rem 0;
-            box-shadow: 0 2px 10px var(--shadow);
-        }
-
-        .member-info {
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 15px var(--shadow);
             display: flex;
             align-items: center;
             gap: 1rem;
         }
 
         .member-avatar {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            background: var(--secondary-lavender);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            object-fit: cover;
+        }
+
+        .member-info {
+            flex: 1;
+        }
+
+        .member-name {
             font-weight: bold;
-            color: var(--text-dark);
+            margin-bottom: 0.5rem;
         }
 
-        .member-details h4 {
-            margin: 0;
-            color: var(--text-dark);
-        }
-
-        .member-details p {
-            margin: 0;
-            font-size: 0.9rem;
+        .member-role {
             color: var(--text-light);
+            font-size: 0.9rem;
         }
 
-        .member-nickname {
-            background: var(--mint-green);
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            margin-top: 0.3rem;
+        .nickname-input {
+            padding: 0.5rem;
+            border: 1px solid var(--text-light);
+            border-radius: 5px;
+            margin-left: 1rem;
+            width: 150px;
         }
 
-        .admin-badge {
-            background: var(--warning);
-            color: white;
-            padding: 0.2rem 0.6rem;
-            border-radius: 10px;
-            font-size: 0.7rem;
-            font-weight: bold;
+        /* Modal styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
         }
 
-        /* Chat */
-        .chat-container {
-            height: 400px;
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
             background: var(--white);
             border-radius: 20px;
-            padding: 1rem;
-            margin-bottom: 1rem;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
             overflow-y: auto;
-            box-shadow: inset 0 2px 10px var(--shadow);
         }
 
-        .chat-message {
-            margin: 1rem 0;
-            padding: 1rem;
-            border-radius: 15px;
-            max-width: 70%;
-        }
-
-        .message-sent {
-            background: var(--primary-pink);
-            margin-left: auto;
-            text-align: right;
-        }
-
-        .message-received {
-            background: var(--soft-blue);
-        }
-
-        .chat-input-container {
+        .modal-header {
             display: flex;
-            gap: 1rem;
+            justify-content: space-between;
             align-items: center;
+            margin-bottom: 1rem;
         }
 
-        .chat-input {
-            flex: 1;
-            padding: 1rem;
+        .modal-close {
+            background: none;
             border: none;
-            border-radius: 25px;
-            background: var(--white);
-            box-shadow: 0 2px 10px var(--shadow);
-            font-size: 1rem;
-        }
-
-        /* Empty state */
-        .empty-state {
-            text-align: center;
-            padding: 3rem;
+            font-size: 1.5rem;
+            cursor: pointer;
             color: var(--text-light);
         }
 
-        /* Settings Modal */
-        .settings-content {
-            max-height: 70vh;
-            overflow-y: auto;
-        }
-
-        .settings-section {
+        .intro-section {
+            background: var(--mint-green);
+            padding: 2rem;
+            border-radius: 15px;
             margin-bottom: 2rem;
+            text-align: center;
         }
 
-        .settings-section h3 {
-            color: var(--text-dark);
+        .intro-section h3 {
             margin-bottom: 1rem;
-            border-bottom: 2px solid var(--primary-pink);
-            padding-bottom: 0.5rem;
+            color: var(--text-dark);
         }
 
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin: 1rem 0;
+        .intro-features {
+            text-align: left;
+            margin-top: 1rem;
         }
 
-        .checkbox-group input[type="checkbox"] {
-            width: auto;
+        .intro-features li {
+            margin-bottom: 0.5rem;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
+            .auth-card {
+                padding: 2rem;
+            }
+
+            .room-options {
+                flex-direction: column;
+                align-items: center;
+            }
+
             .nav-menu {
                 flex-wrap: wrap;
                 gap: 1rem;
@@ -796,15 +687,8 @@
                 padding: 120px 1rem 1rem;
             }
 
-            .room-options {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .content-item .actions {
-                position: static;
-                margin-top: 1rem;
-                justify-content: flex-start;
+            .memory-grid, .note-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -815,122 +699,31 @@
         <div class="loading-spinner"></div>
     </div>
 
-    <!-- Onboarding Modal -->
-    <div id="onboardingModal" class="modal">
+    <!-- Welcome/Intro Modal -->
+    <div id="introModal" class="modal">
         <div class="modal-content">
-            <!-- Step 1: Welcome -->
-            <div id="onboardingStep1" class="onboarding-step active">
-                <h2>Welcome to Our Space! 💕</h2>
-                <div style="font-size: 4rem; margin: 1rem 0;">🏠</div>
-                <p>A private sanctuary for couples to connect, share memories, and stay close no matter the distance.</p>
-                <h3 style="margin-top: 2rem;">How it works:</h3>
-                <ul style="text-align: left; margin: 1rem 0; padding-left: 2rem;">
-                    <li>Create or join a private room with your partner</li>
-                    <li>Share memories, notes, links, and chat together</li>
-                    <li>Everything is stored securely and privately</li>
-                    <li>Only invited members can access your space</li>
-                </ul>
-                <button class="btn primary" onclick="nextOnboardingStep()">Let's Start!</button>
+            <div class="modal-header">
+                <h2>Welcome to Our Space!</h2>
+                <button class="modal-close" onclick="closeIntroModal()">&times;</button>
             </div>
-
-            <!-- Step 2: Privacy & Security -->
-            <div id="onboardingStep2" class="onboarding-step">
-                <h2>Your Privacy Matters 🔐</h2>
-                <div style="font-size: 4rem; margin: 1rem 0;">🛡️</div>
-                <p>We take your privacy seriously:</p>
-                <ul style="text-align: left; margin: 1rem 0; padding-left: 2rem;">
-                    <li><strong>Secure Storage:</strong> Your data is encrypted and stored securely</li>
-                    <li><strong>Invite Only:</strong> Only people you invite can join your room</li>
-                    <li><strong>Admin Control:</strong> Room creators approve all new members</li>
-                    <li><strong>Your Data:</strong> You can export or delete your data anytime</li>
-                </ul>
-                <button class="btn" onclick="prevOnboardingStep()">Back</button>
-                <button class="btn primary" onclick="nextOnboardingStep()">Continue</button>
+            <div class="intro-section">
+                <h3>How Our Space Works</h3>
+                <div class="intro-features">
+                    <ul>
+                        <li><strong>Secure Storage:</strong> Your data is securely stored in encrypted GitHub repositories</li>
+                        <li><strong>Private Rooms:</strong> Each couple gets their own private space with a unique room code</li>
+                        <li><strong>Memory Sharing:</strong> Upload photos and create lasting memories together</li>
+                        <li><strong>Sweet Notes:</strong> Leave loving messages for each other</li>
+                        <li><strong>Nicknames:</strong> Give each other cute nicknames that only you both see</li>
+                        <li><strong>Admin Control:</strong> Room creators manage who can join your space</li>
+                        <li><strong>One Room Policy:</strong> Each user can only be in one room at a time for privacy</li>
+                    </ul>
+                </div>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-light);">
+                    Your privacy is our priority. All data is encrypted and stored securely.
+                </p>
             </div>
-
-            <!-- Step 3: Features -->
-            <div id="onboardingStep3" class="onboarding-step">
-                <h2>Amazing Features ✨</h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0;">
-                    <div style="text-align: center; padding: 1rem; background: var(--mint-green); border-radius: 15px;">
-                        <div style="font-size: 2rem;">📸</div>
-                        <h4>Memories</h4>
-                        <p>Share photos and special moments</p>
-                    </div>
-                    <div style="text-align: center; padding: 1rem; background: var(--primary-pink); border-radius: 15px;">
-                        <div style="font-size: 2rem;">💌</div>
-                        <h4>Sweet Notes</h4>
-                        <p>Write love notes to each other</p>
-                    </div>
-                    <div style="text-align: center; padding: 1rem; background: var(--secondary-lavender); border-radius: 15px;">
-                        <div style="font-size: 2rem;">🔗</div>
-                        <h4>Special Links</h4>
-                        <p>Save meaningful websites together</p>
-                    </div>
-                    <div style="text-align: center; padding: 1rem; background: var(--soft-blue); border-radius: 15px;">
-                        <div style="font-size: 2rem;">💬</div>
-                        <h4>Private Chat</h4>
-                        <p>Real-time messaging</p>
-                    </div>
-                </div>
-                <button class="btn" onclick="prevOnboardingStep()">Back</button>
-                <button class="btn primary" onclick="completeOnboarding()">Get Started!</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Settings Modal -->
-    <div id="settingsModal" class="modal">
-        <div class="modal-content">
-            <div class="settings-content">
-                <h2>Settings</h2>
-                
-                <div class="settings-section">
-                    <h3>Account</h3>
-                    <div class="form-group">
-                        <label for="displayName">Display Name</label>
-                        <input type="text" id="displayName" placeholder="Your display name">
-                    </div>
-                </div>
-
-                <div class="settings-section">
-                    <h3>Room Management</h3>
-                    <div id="adminControls" style="display: none;">
-                        <p><strong>You are the room admin</strong></p>
-                        <button class="btn danger" onclick="deleteRoom()">Delete Room</button>
-                    </div>
-                    <div>
-                        <button class="btn" onclick="exportData()">Export My Data</button>
-                    </div>
-                </div>
-
-                <div class="settings-section">
-                    <h3>Privacy</h3>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="useCustomGitHub" onchange="toggleCustomGitHub()">
-                        <label for="useCustomGitHub">Use my own GitHub repository (Advanced)</label>
-                    </div>
-                    <div id="customGitHubConfig" style="display: none; margin-top: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 10px;">
-                        <p style="color: var(--warning); font-size: 0.9rem; margin-bottom: 1rem;">
-                            ⚠️ By enabling this, your data will be moved to your own GitHub repository. We will no longer be responsible for data loss or recovery.
-                        </p>
-                        <div class="form-group">
-                            <label for="customGitHubRepo">GitHub Repository (username/repo-name)</label>
-                            <input type="text" id="customGitHubRepo" placeholder="yourusername/our-space-data">
-                        </div>
-                        <div class="form-group">
-                            <label for="customGitHubToken">GitHub Personal Access Token</label>
-                            <input type="password" id="customGitHubToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
-                        </div>
-                        <button class="btn primary" onclick="migrateToCustomGitHub()">Migrate Data</button>
-                    </div>
-                </div>
-
-                <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 2rem;">
-                    <button class="btn" onclick="closeSettings()">Cancel</button>
-                    <button class="btn primary" onclick="saveSettings()">Save Changes</button>
-                </div>
-            </div>
+            <button class="btn primary" onclick="closeIntroModal()">Got it!</button>
         </div>
     </div>
 
@@ -940,49 +733,87 @@
             <h1>Our Space 💕</h1>
             <p>A private sanctuary for couples to connect, share memories, and stay close no matter the distance.</p>
             
+            <!-- Auth Tabs -->
             <div class="auth-tabs">
-                <button class="auth-tab active" onclick="showAuthTab('login')">Sign In</button>
-                <button class="auth-tab" onclick="showAuthTab('register')">Register</button>
+                <button class="auth-tab active" onclick="showTab('login')">Login</button>
+                <button class="auth-tab" onclick="showTab('register')">Register</button>
             </div>
 
             <!-- Login Form -->
             <div id="loginForm" class="auth-form active">
                 <div class="form-group">
-                    <label for="loginUsername">Username</label>
-                    <input type="text" id="loginUsername" placeholder="Enter your username">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email address" required>
                 </div>
+                
                 <div class="form-group">
                     <label for="loginPassword">Password</label>
-                    <input type="password" id="loginPassword" placeholder="Enter your password">
+                    <div class="password-toggle">
+                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                        <button type="button" onclick="togglePassword('loginPassword')">👁️</button>
+                    </div>
                 </div>
-                <button class="btn primary" onclick="signIn()" style="width: 100%; margin-top: 1rem;">Sign In</button>
+                
+                <button class="btn primary" onclick="loginUser()">Login</button>
+                
+                <div class="auth-link">
+                    Don't have an account? <a href="#" onclick="showTab('register')">Register here</a>
+                </div>
             </div>
 
             <!-- Register Form -->
             <div id="registerForm" class="auth-form">
                 <div class="form-group">
-                    <label for="registerUsername">Choose Username</label>
-                    <input type="text" id="registerUsername" placeholder="Enter a unique username">
+                    <label for="registerEmail">Email Address</label>
+                    <input type="email" id="registerEmail" placeholder="Enter your email address" required>
                 </div>
+                
                 <div class="form-group">
                     <label for="registerPassword">Password</label>
-                    <input type="password" id="registerPassword" placeholder="Create a password">
+                    <div class="password-toggle">
+                        <input type="password" id="registerPassword" placeholder="Create a strong password" required>
+                        <button type="button" onclick="togglePassword('registerPassword')">👁️</button>
+                    </div>
                 </div>
+                
                 <div class="form-group">
-                    <label for="registerConfirmPassword">Confirm Password</label>
-                    <input type="password" id="registerConfirmPassword" placeholder="Confirm your password">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <div class="password-toggle">
+                        <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                        <button type="button" onclick="togglePassword('confirmPassword')">👁️</button>
+                    </div>
                 </div>
+                
                 <div class="form-group">
-                    <label for="displayNameReg">Display Name</label>
-                    <input type="text" id="displayNameReg" placeholder="How should others see your name?">
+                    <label for="displayName">Display Name</label>
+                    <input type="text" id="displayName" placeholder="How should we call you?" required>
                 </div>
-                <button class="btn primary" onclick="register()" style="width: 100%; margin-top: 1rem;">Create Account</button>
+                
+                <div class="form-group">
+                    <label>Profile Picture</label>
+                    <div class="avatar-upload">
+                        <div class="avatar-preview" id="avatarPreview">👤</div>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="avatarInput" class="file-input" accept="image/*">
+                            <button type="button" class="file-input-button" onclick="document.getElementById('avatarInput').click()">
+                                Upload Photo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn primary" onclick="registerUser()">Create Account</button>
+                
+                <div class="auth-link">
+                    Already have an account? <a href="#" onclick="showTab('login')">Login here</a>
+                </div>
             </div>
 
+            <!-- Room Management (shown after login) -->
             <div id="roomManagement" style="display: none;">
                 <div class="room-options">
-                    <button class="room-btn create-room-btn" onclick="showCreateRoom()">Create Room</button>
-                    <button class="room-btn join-room-btn" onclick="showJoinRoom()">Join Room</button>
+                    <button class="room-btn create-room-btn" onclick="showCreateRoom()" id="createRoomBtn">Create Room</button>
+                    <button class="room-btn join-room-btn" onclick="showJoinRoom()" id="joinRoomBtn">Join Room</button>
                 </div>
 
                 <div id="createRoomContainer" class="room-input-container">
@@ -993,11 +824,12 @@
                 </div>
 
                 <div id="joinRoomContainer" class="room-input-container">
-                    <input type="text" id="roomCodeInput" class="room-input" placeholder="Enter Room Code" maxlength="6">
-                    <button class="btn primary" onclick="requestJoinRoom()" id="joinRoomBtn">Request to Join</button>
-                    <div id="pendingRequest" class="pending-status" style="display: none;">
-                        <p>⏳ Your request is pending approval from the room admin.</p>
-                        <button class="btn" onclick="cancelJoinRequest()">Cancel Request</button>
+                    <input type="text" id="roomCodeInput" class="room-input" placeholder="Enter Room Code" maxlength="8">
+                    <button class="btn primary" onclick="requestToJoin()" id="joinSubmitBtn">Request to Join</button>
+                    
+                    <div id="joinRequestStatus" class="join-request-status" style="display: none;">
+                        <p>Join request sent! Waiting for approval from room admin...</p>
+                        <button class="btn small" onclick="cancelJoinRequest()">Cancel Request</button>
                     </div>
                 </div>
 
@@ -1012,28 +844,18 @@
             <ul class="nav-menu">
                 <li class="nav-item active" data-page="home">🏠 Home</li>
                 <li class="nav-item" data-page="memories">📸 Memories</li>
-                <li class="nav-item" data-page="links">🔗 Links</li>
                 <li class="nav-item" data-page="notes">📝 Notes</li>
+                <li class="nav-item" data-page="links">🔗 Links</li>
+                <li class="nav-item" data-page="members" id="membersNavItem">
+                    👥 Members
+                    <span id="joinRequestBadge" class="notification-badge" style="display: none;">0</span>
+                </li>
                 <li class="nav-item" data-page="chat">💬 Chat</li>
-                <li class="nav-item" data-page="members">👥 Members</li>
             </ul>
             <div class="user-info">
-                <!-- Notification Bell (Admin Only) -->
-                <div id="notificationBell" class="notification-bell" style="display: none;" onclick="toggleNotifications()">
-                    <span style="font-size: 1.2rem;">🔔</span>
-                    <div id="notificationBadge" class="notification-badge" style="display: none;">0</div>
-                    
-                    <div id="notificationDropdown" class="notification-dropdown">
-                        <div style="padding: 1rem; border-bottom: 1px solid #eee; font-weight: bold;">Join Requests</div>
-                        <div id="notificationList"></div>
-                    </div>
-                </div>
-
-                <div id="roomInfoDisplay" class="room-info"></div>
-                <div id="userAvatar" class="user-avatar"></div>
-                <span id="userName"></span>
-                <button class="settings-btn" onclick="openSettings()">Settings</button>
-                <button class="exit-room-btn" onclick="exitRoom()">Exit Room</button>
+                <img id="userAvatar" class="user-avatar" src="" alt="User">
+                <span id="userNameNav"></span>
+                <button class="btn danger small" onclick="logout()">Logout</button>
             </div>
         </div>
     </nav>
@@ -1045,893 +867,417 @@
             <div class="card">
                 <h2>Welcome to Our Space 💕</h2>
                 <p id="welcomeMessage">Start creating beautiful memories together!</p>
-                <div id="roomStats" style="margin-top: 2rem;">
-                    <p><strong>Room Code:</strong> <span id="currentRoomCode"></span></p>
-                    <p><strong>Members:</strong> <span id="memberCount">1</span></p>
-                    <p><strong>Created:</strong> <span id="roomCreated"></span></p>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3>Quick Actions</h3>
-                <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
-                    <button class="btn" onclick="showPage('memories')">Add Memory</button>
-                    <button class="btn" onclick="showPage('notes')">Write Note</button>
-                    <button class="btn" onclick="showPage('links')">Save Link</button>
-                    <button class="btn" onclick="showPage('chat')">Start Chat</button>
-                </div>
-            </div>
-
-            <div id="recentActivity" class="card">
-                <h3>Recent Activity</h3>
-                <div id="activityList" class="empty-state">
-                    <h3>No activity yet</h3>
-                    <p>Start by adding your first memory, note, or link!</p>
-                </div>
             </div>
         </div>
 
         <!-- Memories Page -->
         <div id="memories" class="page">
             <div class="card">
-                <h2>Our Memories 📸</h2>
-                <div class="form-group">
-                    <label for="memoryTitle">Memory Title</label>
-                    <input type="text" id="memoryTitle" placeholder="Enter memory title">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2>Our Memories 📸</h2>
+                    <button class="btn primary small" onclick="openAddMemoryModal()">Add Memory</button>
                 </div>
-                <div class="form-group">
-                    <label for="memoryDescription">Description</label>
-                    <textarea id="memoryDescription" placeholder="Describe this special moment..."></textarea>
+                <div id="memoryGrid" class="memory-grid">
+                    <!-- Memories will be loaded here -->
                 </div>
-                <div class="form-group">
-                    <label for="memoryDate">Date</label>
-                    <input type="date" id="memoryDate">
-                </div>
-                <div class="form-group">
-                    <label for="memoryImage">Add Photo (optional)</label>
-                    <div class="file-upload">
-                        <input type="file" id="memoryImage" accept="image/*" onchange="previewImage(this, 'memoryImagePreview')">
-                        <span>Click to upload image or drag and drop</span>
-                    </div>
-                    <img id="memoryImagePreview" class="image-preview" style="display: none;">
-                </div>
-                <button class="btn primary" onclick="addMemory()">Add Memory</button>
-                <button class="btn" onclick="clearMemoryForm()">Clear Form</button>
             </div>
-
-            <div id="memoriesContainer"></div>
-        </div>
-
-        <!-- Links Page -->
-        <div id="links" class="page">
-            <div class="card">
-                <h2>Our Links 🔗</h2>
-                <div class="form-group">
-                    <label for="linkTitle">Link Title</label>
-                    <input type="text" id="linkTitle" placeholder="Enter link title">
-                </div>
-                <div class="form-group">
-                    <label for="linkUrl">URL</label>
-                    <input type="url" id="linkUrl" placeholder="https://example.com">
-                </div>
-                <div class="form-group">
-                    <label for="linkDescription">Description</label>
-                    <textarea id="linkDescription" placeholder="Why is this link special to you?"></textarea>
-                </div>
-                <button class="btn primary" onclick="addLink()">Save Link</button>
-                <button class="btn" onclick="clearLinkForm()">Clear Form</button>
-            </div>
-
-            <div id="linksContainer"></div>
         </div>
 
         <!-- Notes Page -->
         <div id="notes" class="page">
             <div class="card">
-                <h2>Our Notes 📝</h2>
-                <div class="form-group">
-                    <label for="noteTitle">Note Title</label>
-                    <input type="text" id="noteTitle" placeholder="Enter note title">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2>Sweet Notes 📝</h2>
+                    <button class="btn primary small" onclick="openAddNoteModal()">Add Note</button>
                 </div>
-                <div class="form-group">
-                    <label for="noteContent">Message</label>
-                    <textarea id="noteContent" placeholder="Write your sweet message..."></textarea>
+                <div id="noteGrid" class="note-grid">
+                    <!-- Notes will be loaded here -->
                 </div>
-                <div class="form-group">
-                    <label for="noteImage">Add Image (optional)</label>
-                    <div class="file-upload">
-                        <input type="file" id="noteImage" accept="image/*" onchange="previewImage(this, 'noteImagePreview')">
-                        <span>Click to upload image or drag and drop</span>
-                    </div>
-                    <img id="noteImagePreview" class="image-preview" style="display: none;">
-                </div>
-                <button class="btn primary" onclick="addNote()">Save Note</button>
-                <button class="btn" onclick="clearNoteForm()">Clear Form</button>
             </div>
-
-            <div id="notesContainer"></div>
         </div>
 
-        <!-- Chat Page -->
-        <div id="chat" class="page">
+        <!-- Links Page -->
+        <div id="links" class="page">
             <div class="card">
-                <h2>Private Chat 💬</h2>
-                <div class="chat-container" id="chatContainer"></div>
-                
-                <div class="chat-input-container">
-                    <input type="text" class="chat-input" placeholder="Type your message..." id="messageInput">
-                    <button class="btn primary" onclick="sendMessage()">Send</button>
-                </div>
+                <h2>Important Links 🔗</h2>
+                <p>Save websites and resources that matter to you</p>
             </div>
         </div>
 
         <!-- Members Page -->
         <div id="members" class="page">
             <div class="card">
-                <h2>Our Space Members 👥</h2>
-                <div id="membersContainer"></div>
+                <h2>Room Members 👥</h2>
+                <div id="membersList">
+                    <!-- Members will be loaded here -->
+                </div>
+                <div id="joinRequests" style="margin-top: 2rem;">
+                    <h3>Join Requests</h3>
+                    <div id="joinRequestsList">
+                        <!-- Join requests will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Page -->
+        <div id="chat" class="page">
+            <div class="card">
+                <h2>Private Chat 💬</h2>
+                <p>Your private conversation space</p>
             </div>
         </div>
     </div>
 
+    <!-- Add Memory Modal -->
+    <div id="addMemoryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Memory</h3>
+                <button class="modal-close" onclick="closeModal('addMemoryModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label for="memoryTitle">Title</label>
+                <input type="text" id="memoryTitle" placeholder="Give this memory a title">
+            </div>
+            <div class="form-group">
+                <label for="memoryDescription">Description</label>
+                <textarea id="memoryDescription" rows="3" placeholder="Describe this beautiful moment..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Image</label>
+                <div class="file-input-wrapper">
+                    <input type="file" id="memoryImageInput" class="file-input" accept="image/*">
+                    <button type="button" class="file-input-button" onclick="document.getElementById('memoryImageInput').click()">
+                        Upload Image
+                    </button>
+                </div>
+                <img id="memoryImagePreview" style="max-width: 100%; margin-top: 1rem; border-radius: 10px; display: none;">
+            </div>
+            <button class="btn primary" onclick="saveMemory()">Save Memory</button>
+        </div>
+    </div>
+
+    <!-- Add Note Modal -->
+    <div id="addNoteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Sweet Note</h3>
+                <button class="modal-close" onclick="closeModal('addNoteModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label for="noteTitle">Title</label>
+                <input type="text" id="noteTitle" placeholder="Give your note a title">
+            </div>
+            <div class="form-group">
+                <label for="noteContent">Message</label>
+                <textarea id="noteContent" rows="5" placeholder="Write your sweet message here..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Optional Image</label>
+                <div class="file-input-wrapper">
+                    <input type="file" id="noteImageInput" class="file-input" accept="image/*">
+                    <button type="button" class="file-input-button" onclick="document.getElementById('noteImageInput').click()">
+                        Upload Image
+                    </button>
+                </div>
+                <img id="noteImagePreview" style="max-width: 100%; margin-top: 1rem; border-radius: 10px; display: none;">
+            </div>
+            <button class="btn primary" onclick="saveNote()">Save Note</button>
+        </div>
+    </div>
+
     <script>
-        // Configuration - Server handles GitHub config
-        let config = {
-            serverEndpoint: '/api', // This would be your server endpoint
-            maxFileSize: 100 * 1024 * 1024 // 100MB per file
-        };
+        // GitHub Configuration (These would be set as environment variables in Appwrite)
+        const GITHUB_TOKEN = 'github_pat_your_token_here'; // This will be in Appwrite secrets
+        const GITHUB_OWNER = 'your-username';
+        const GITHUB_REPO = 'ourspace-data';
+        const GITHUB_API_BASE = 'https://api.github.com/repos/' + GITHUB_OWNER + '/' + GITHUB_REPO + '/contents/';
 
         // Global variables
         let currentUser = null;
         let currentRoom = null;
-        let roomData = {};
-        let allRoomsData = {};
-        let currentOnboardingStep = 1;
-        let isFirstTime = true;
-        let pendingRequests = [];
-        let memberNicknames = {};
-        let editingContent = null;
+        let masterFileData = null;
+        let joinRequestCheckInterval = null;
 
-        // Initialize the app
+        // Initialize app
         document.addEventListener('DOMContentLoaded', function() {
-            checkAuthState();
-            setupEventListeners();
+            initializeApp();
         });
 
-        // Auth functions
-        function showAuthTab(tab) {
-            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
-            
-            event.target.classList.add('active');
-            document.getElementById(tab + 'Form').classList.add('active');
-        }
-
-        async function register() {
-            const username = document.getElementById('registerUsername').value.trim();
-            const password = document.getElementById('registerPassword').value;
-            const confirmPassword = document.getElementById('registerConfirmPassword').value;
-            const displayName = document.getElementById('displayNameReg').value.trim();
-
-            if (!username || !password || !displayName) {
-                showAlert('Please fill in all fields', 'error');
-                return;
-            }
-
-            if (password !== confirmPassword) {
-                showAlert('Passwords do not match', 'error');
-                return;
-            }
-
-            if (password.length < 6) {
-                showAlert('Password must be at least 6 characters long', 'error');
-                return;
-            }
-
-            // Check if username exists (mock check)
-            const existingUsers = JSON.parse(localStorage.getItem('registeredUsers') || '{}');
-            if (existingUsers[username]) {
-                showAlert('Username already taken. Please choose another one.', 'error');
-                return;
-            }
-
-            // Register user
-            const newUser = {
-                id: 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
-                username: username,
-                password: password, // In real app, this would be hashed
-                displayName: displayName,
-                registeredAt: new Date().toISOString()
-            };
-
-            existingUsers[username] = newUser;
-            localStorage.setItem('registeredUsers', JSON.stringify(existingUsers));
-
-            currentUser = {
-                id: newUser.id,
-                username: newUser.username,
-                name: newUser.displayName
-            };
-            
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            showAlert('Account created successfully!', 'success');
-            
-            setTimeout(() => {
-                showRoomManagement();
-            }, 1500);
-        }
-
-        async function signIn() {
-            const username = document.getElementById('loginUsername').value.trim();
-            const password = document.getElementById('loginPassword').value;
-
-            if (!username || !password) {
-                showAlert('Please fill in both fields', 'error');
-                return;
-            }
-
-            const existingUsers = JSON.parse(localStorage.getItem('registeredUsers') || '{}');
-            const user = existingUsers[username];
-
-            if (!user || user.password !== password) {
-                showAlert('Invalid username or password', 'error');
-                return;
-            }
-
-            currentUser = {
-                id: user.id,
-                username: user.username,
-                name: user.displayName
-            };
-            
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            
-            const savedRoom = localStorage.getItem('currentRoom');
-            if (savedRoom) {
-                currentRoom = savedRoom;
-                await loadRoomData();
-            } else {
-                showRoomManagement();
-            }
-        }
-
-        function checkAuthState() {
-            const savedUser = localStorage.getItem('currentUser');
-            const savedRoom = localStorage.getItem('currentRoom');
-            const hasSeenOnboarding = localStorage.getItem('hasSeenOnboarding');
-            
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                
-                if (savedRoom) {
-                    currentRoom = savedRoom;
-                    loadRoomData();
-                } else {
-                    showRoomManagement();
-                }
-            } else {
-                if (!hasSeenOnboarding) {
-                    showOnboarding();
-                }
-                document.getElementById('authScreen').style.display = 'flex';
-            }
-        }
-
-        function showRoomManagement() {
-            document.getElementById('authScreen').style.display = 'flex';
-            document.getElementById('roomManagement').style.display = 'block';
-        }
-
-        // Onboarding functions
-        function showOnboarding() {
-            document.getElementById('onboardingModal').classList.add('active');
-        }
-
-        function nextOnboardingStep() {
-            if (currentOnboardingStep < 3) {
-                document.getElementById(`onboardingStep${currentOnboardingStep}`).classList.remove('active');
-                currentOnboardingStep++;
-                document.getElementById(`onboardingStep${currentOnboardingStep}`).classList.add('active');
-            }
-        }
-
-        function prevOnboardingStep() {
-            if (currentOnboardingStep > 1) {
-                document.getElementById(`onboardingStep${currentOnboardingStep}`).classList.remove('active');
-                currentOnboardingStep--;
-                document.getElementById(`onboardingStep${currentOnboardingStep}`).classList.add('active');
-            }
-        }
-
-        function completeOnboarding() {
-            localStorage.setItem('hasSeenOnboarding', 'true');
-            document.getElementById('onboardingModal').classList.remove('active');
-        }
-
-        // Room management functions
-        function showCreateRoom() {
-            hideRoomContainers();
-            const roomCode = generateRoomCode();
-            document.getElementById('roomCodeDisplay').textContent = roomCode;
-            document.getElementById('createRoomContainer').classList.add('active');
-        }
-
-        function showJoinRoom() {
-            hideRoomContainers();
-            document.getElementById('joinRoomContainer').classList.add('active');
-        }
-
-        function hideRoomContainers() {
-            document.querySelectorAll('.room-input-container').forEach(container => {
-                container.classList.remove('active');
-            });
-        }
-
-        function generateRoomCode() {
-            let roomCode;
-            do {
-                roomCode = Math.random().toString(36).substr(2, 6).toUpperCase();
-            } while (allRoomsData[roomCode]); // Ensure unique room code
-            
-            return roomCode;
-        }
-
-        async function createRoom() {
-            const roomCode = document.getElementById('roomCodeDisplay').textContent;
-            
-            showLoading(true);
-            await loadAllRoomsData();
-            
-            const newRoomData = {
-                code: roomCode,
-                creator: currentUser.id,
-                admin: currentUser.id,
-                created: new Date().toISOString(),
-                members: [{
-                    id: currentUser.id,
-                    username: currentUser.username,
-                    name: currentUser.name,
-                    joinedAt: new Date().toISOString(),
-                    nickname: currentUser.name
-                }],
-                pendingRequests: [],
-                memories: [],
-                links: [],
-                notes: [],
-                messages: [],
-                nicknames: {},
-                currentDataFile: 1, // Start with file 1
-                fileManifest: {
-                    totalFiles: 1,
-                    currentFile: 1,
-                    files: ['rooms_data_1.txt']
-                }
-            };
-
-            allRoomsData[roomCode] = newRoomData;
-            await saveAllRoomsData();
-            
-            localStorage.setItem('currentRoom', roomCode);
-            currentRoom = roomCode;
-            roomData = newRoomData;
-            
-            showAlert('Room created successfully!', 'success');
-            setTimeout(() => {
-                showMainApp();
-            }, 1500);
-        }
-
-        async function requestJoinRoom() {
-            const roomCode = document.getElementById('roomCodeInput').value.trim().toUpperCase();
-            
-            if (!roomCode) {
-                showAlert('Please enter a room code', 'error');
-                return;
-            }
-
-            // Check if user is already in a room
-            const existingRoom = localStorage.getItem('currentRoom');
-            if (existingRoom) {
-                showAlert('You must leave your current room before joining another', 'error');
-                return;
-            }
-
-            showLoading(true);
-            await loadAllRoomsData();
-            
-            if (!allRoomsData[roomCode]) {
-                showLoading(false);
-                showAlert('Room not found. Please check the code and try again.', 'error');
-                return;
-            }
-
-            const room = allRoomsData[roomCode];
-            
-            // Check if user is already a member
-            const existingMember = room.members.find(m => m.id === currentUser.id);
-            if (existingMember) {
-                localStorage.setItem('currentRoom', roomCode);
-                currentRoom = roomCode;
-                roomData = room;
-                showAlert('Welcome back to the room!', 'success');
-                setTimeout(() => {
-                    showMainApp();
-                }, 1500);
-                return;
-            }
-
-            // Check if user already has a pending request
-            const existingRequest = room.pendingRequests && room.pendingRequests.find(r => r.userId === currentUser.id);
-            if (existingRequest) {
-                showLoading(false);
-                showPendingStatus();
-                return;
-            }
-
-            // Add join request
-            if (!room.pendingRequests) room.pendingRequests = [];
-            room.pendingRequests.push({
-                userId: currentUser.id,
-                username: currentUser.username,
-                name: currentUser.name,
-                requestedAt: new Date().toISOString()
-            });
-
-            allRoomsData[roomCode] = room;
-            await saveAllRoomsData();
-            
-            showLoading(false);
-            showPendingStatus();
-            showAlert('Join request sent! Waiting for admin approval.', 'success');
-        }
-
-        function showPendingStatus() {
-            document.getElementById('joinRoomBtn').style.display = 'none';
-            document.getElementById('pendingRequest').style.display = 'block';
-        }
-
-        async function cancelJoinRequest() {
-            const roomCode = document.getElementById('roomCodeInput').value.trim().toUpperCase();
-            if (!roomCode || !allRoomsData[roomCode]) return;
-
-            const room = allRoomsData[roomCode];
-            if (room.pendingRequests) {
-                room.pendingRequests = room.pendingRequests.filter(r => r.userId !== currentUser.id);
-                allRoomsData[roomCode] = room;
-                await saveAllRoomsData();
-            }
-
-            document.getElementById('joinRoomBtn').style.display = 'block';
-            document.getElementById('pendingRequest').style.display = 'none';
-            showAlert('Join request cancelled', 'success');
-        }
-
-        async function exitRoom() {
-            if (confirm('Are you sure you want to exit this room? You can always rejoin with the room code.')) {
-                if (roomData && roomData.messages) {
-                    roomData.messages.push({
-                        id: 'msg_' + Date.now(),
-                        content: `${currentUser.name} left the room`,
-                        author: 'system',
-                        timestamp: new Date().toISOString(),
-                        type: 'system'
-                    });
-                    
-                    // Remove user from members list
-                    if (roomData.members) {
-                        roomData.members = roomData.members.filter(m => m.id !== currentUser.id);
-                    }
-
-                    // If user was admin and there are other members, transfer admin to next oldest member
-                    if (roomData.admin === currentUser.id && roomData.members.length > 0) {
-                        const nextAdmin = roomData.members.sort((a, b) => new Date(a.joinedAt) - new Date(b.joinedAt))[0];
-                        roomData.admin = nextAdmin.id;
-                        
-                        roomData.messages.push({
-                            id: 'msg_' + Date.now() + '_admin',
-                            content: `${nextAdmin.name} is now the room admin`,
-                            author: 'system',
-                            timestamp: new Date().toISOString(),
-                            type: 'system'
-                        });
-                    }
-                    
-                    allRoomsData[currentRoom] = roomData;
-                    await saveAllRoomsData();
-                }
-                
-                localStorage.removeItem('currentRoom');
-                currentRoom = null;
-                roomData = {};
-                
-                // Show room management again
-                document.getElementById('mainContainer').classList.remove('active');
-                document.getElementById('mainNav').classList.remove('active');
-                document.getElementById('authScreen').style.display = 'flex';
-                showRoomManagement();
-            }
-        }
-
-        // Notification functions
-        function toggleNotifications() {
-            const dropdown = document.getElementById('notificationDropdown');
-            dropdown.classList.toggle('active');
-        }
-
-        async function approveJoinRequest(userId) {
-            if (!roomData.pendingRequests) return;
-
-            const request = roomData.pendingRequests.find(r => r.userId === userId);
-            if (!request) return;
-
-            // Add user to members
-            roomData.members.push({
-                id: request.userId,
-                username: request.username,
-                name: request.name,
-                joinedAt: new Date().toISOString(),
-                nickname: request.name
-            });
-
-            // Remove from pending requests
-            roomData.pendingRequests = roomData.pendingRequests.filter(r => r.userId !== userId);
-
-            // Add join message
-            roomData.messages.push({
-                id: 'msg_' + Date.now(),
-                content: `${request.name} joined the room`,
-                author: 'system',
-                timestamp: new Date().toISOString(),
-                type: 'system'
-            });
-
-            allRoomsData[currentRoom] = roomData;
-            await saveAllRoomsData();
-            
-            updateNotificationBell();
-            updateUI();
-            showAlert(`${request.name} has been added to the room`, 'success');
-        }
-
-        async function declineJoinRequest(userId) {
-            if (!roomData.pendingRequests) return;
-
-            const request = roomData.pendingRequests.find(r => r.userId === userId);
-            if (!request) return;
-
-            roomData.pendingRequests = roomData.pendingRequests.filter(r => r.userId !== userId);
-            allRoomsData[currentRoom] = roomData;
-            await saveAllRoomsData();
-            
-            updateNotificationBell();
-            showAlert(`Join request from ${request.name} declined`, 'success');
-        }
-
-        function updateNotificationBell() {
-            const bell = document.getElementById('notificationBell');
-            const badge = document.getElementById('notificationBadge');
-            const list = document.getElementById('notificationList');
-
-            if (roomData.admin !== currentUser.id) {
-                bell.style.display = 'none';
-                return;
-            }
-
-            const pendingCount = roomData.pendingRequests ? roomData.pendingRequests.length : 0;
-            
-            if (pendingCount > 0) {
-                bell.style.display = 'block';
-                badge.style.display = 'block';
-                badge.textContent = pendingCount;
-
-                list.innerHTML = roomData.pendingRequests.map(request => `
-                    <div class="notification-item">
-                        <div>
-                            <strong>${request.name}</strong><br>
-                            <small>@${request.username}</small><br>
-                            <small>${new Date(request.requestedAt).toLocaleString()}</small>
-                        </div>
-                        <div class="notification-actions">
-                            <button class="btn-small btn-accept" onclick="approveJoinRequest('${request.userId}')">Accept</button>
-                            <button class="btn-small btn-decline" onclick="declineJoinRequest('${request.userId}')">Decline</button>
-                        </div>
-                    </div>
-                `).join('');
-            } else {
-                badge.style.display = 'none';
-                list.innerHTML = '<div style="padding: 1rem; text-align: center; color: var(--text-light);">No pending requests</div>';
-            }
-        }
-
-        // GitHub Data Functions with multi-file support
-        async function loadAllRoomsData() {
+        async function initializeApp() {
             try {
-                // Load master manifest file first
-                let masterManifest = { currentFile: 1, totalFiles: 1, files: ['rooms_data_1.txt'] };
-                
-                try {
-                    const manifestResponse = await fetch(`https://api.github.com/repos/${config.githubRepo}/contents/master_manifest.json`, {
-                        headers: {
-                            'Authorization': `token ${config.githubToken}`,
-                            'Accept': 'application/vnd.github.v3+json'
-                        }
-                    });
-                    
-                    if (manifestResponse.ok) {
-                        const manifestData = await manifestResponse.json();
-                        masterManifest = JSON.parse(atob(manifestData.content));
-                    }
-                } catch (e) {
-                    console.log('No master manifest found, using default');
-                }
-
-                // Load data from all files
-                allRoomsData = {};
-                for (const fileName of masterManifest.files) {
-                    try {
-                        const response = await fetch(`https://api.github.com/repos/${config.githubRepo}/contents/${fileName}`, {
-                            headers: {
-                                'Authorization': `token ${config.githubToken}`,
-                                'Accept': 'application/vnd.github.v3+json'
-                            }
-                        });
-
-                        if (response.ok) {
-                            const data = await response.json();
-                            const content = atob(data.content);
-                            
-                            if (content.trim()) {
-                                const fileRooms = parseRoomsData(content);
-                                allRoomsData = { ...allRoomsData, ...fileRooms };
-                            }
-                        }
-                    } catch (error) {
-                        console.error(`Error loading ${fileName}:`, error);
-                    }
-                }
-                
-                return masterManifest;
+                showLoading();
+                await initializeGitHubStorage();
+                await checkExistingSession();
+                setupEventListeners();
+                hideLoading();
             } catch (error) {
-                console.error('Error loading rooms data:', error);
-                return { currentFile: 1, totalFiles: 1, files: ['rooms_data_1.txt'] };
+                hideLoading();
+                showAlert('Failed to initialize app: ' + error.message);
             }
         }
 
-        function parseRoomsData(content) {
-            const rooms = {};
-            const sections = content.split('---ROOM_SEPARATOR---');
-            
-            for (const section of sections) {
-                if (section.trim()) {
-                    try {
-                        const lines = section.trim().split('\n');
-                        const roomCode = lines[0].replace('ROOM:', '').trim();
-                        const jsonData = lines.slice(1).join('\n');
-                        rooms[roomCode] = JSON.parse(jsonData);
-                    } catch (error) {
-                        console.error('Error parsing room data:', error);
-                    }
-                }
-            }
-            
-            return rooms;
-        }
-
-        function stringifyRoomsData(rooms) {
-            const sections = [];
-            
-            for (const [roomCode, data] of Object.entries(rooms)) {
-                sections.push(`ROOM:${roomCode}\n${JSON.stringify(data, null, 2)}`);
-            }
-            
-            return sections.join('\n---ROOM_SEPARATOR---\n');
-        }
-
-        async function saveAllRoomsData() {
+        async function initializeGitHubStorage() {
             try {
-                showLoading(true);
-                
-                // Load current manifest
-                const masterManifest = await loadAllRoomsData();
-                
-                // Determine which file to save to
-                const currentFileName = `rooms_data_${masterManifest.currentFile}.txt`;
-                const content = stringifyRoomsData({ [currentRoom]: allRoomsData[currentRoom] });
-                
-                // Check if current file will exceed size limit
-                if (content.length > config.maxFileSize) {
-                    // Create new file
-                    masterManifest.currentFile = masterManifest.totalFiles + 1;
-                    masterManifest.totalFiles += 1;
-                    masterManifest.files.push(`rooms_data_${masterManifest.currentFile}.txt`);
-                    
-                    await createNewDataFile(masterManifest);
-                } else {
-                    await updateExistingDataFile(currentFileName, content);
-                }
-                
-                showLoading(false);
-            } catch (error) {
-                showLoading(false);
-                console.error('Error saving rooms data:', error);
-                showAlert('Failed to save data. Please try again.', 'error');
-            }
-        }
-
-        async function createNewDataFile(manifest) {
-            const newFileName = `rooms_data_${manifest.currentFile}.txt`;
-            const content = stringifyRoomsData({ [currentRoom]: allRoomsData[currentRoom] });
-            const encodedContent = btoa(unescape(encodeURIComponent(content)));
-            
-            // Create new data file
-            await fetch(`https://api.github.com/repos/${config.githubRepo}/contents/${newFileName}`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `token ${config.githubToken}`,
-                    'Accept': 'application/vnd.github.v3+json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    message: `Create new data file: ${newFileName}`,
-                    content: encodedContent
-                })
-            });
-
-            // Update master manifest
-            await updateMasterManifest(manifest);
-            
-            showAlert(`Data moved to new file: ${newFileName}`, 'success');
-        }
-
-        async function updateExistingDataFile(fileName, content) {
-            // Get current file SHA
-            const response = await fetch(`https://api.github.com/repos/${config.githubRepo}/contents/${fileName}`, {
-                headers: {
-                    'Authorization': `token ${config.githubToken}`,
-                    'Accept': 'application/vnd.github.v3+json'
-                }
-            });
-
-            let sha = null;
-            if (response.ok) {
-                const data = await response.json();
-                sha = data.sha;
-            }
-
-            const encodedContent = btoa(unescape(encodeURIComponent(content)));
-            
-            await fetch(`https://api.github.com/repos/${config.githubRepo}/contents/${fileName}`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `token ${config.githubToken}`,
-                    'Accept': 'application/vnd.github.v3+json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    message: 'Update room data',
-                    content: encodedContent,
-                    sha: sha
-                })
-            });
-        }
-
-        async function updateMasterManifest(manifest) {
-            // Get current manifest SHA
-            let sha = null;
-            try {
-                const response = await fetch(`https://api.github.com/repos/${config.githubRepo}/contents/master_manifest.json`, {
+                // Check if master file exists, create if not
+                const masterResponse = await fetch(GITHUB_API_BASE + 'master.json', {
                     headers: {
-                        'Authorization': `token ${config.githubToken}`,
+                        'Authorization': 'token ' + GITHUB_TOKEN,
                         'Accept': 'application/vnd.github.v3+json'
                     }
                 });
-                
+
+                if (masterResponse.status === 404) {
+                    // Create master file
+                    const masterData = {
+                        currentDataFile: 'rooms_data_1.json',
+                        dataFiles: ['rooms_data_1.json'],
+                        fileSizes: { 'rooms_data_1.json': 0 },
+                        lastUpdated: new Date().toISOString()
+                    };
+
+                    await createOrUpdateFile('master.json', masterData);
+
+                    // Create first data file
+                    const initialData = {
+                        users: [],
+                        rooms: [],
+                        globalRoomCounter: 1000,
+                        lastUpdated: new Date().toISOString()
+                    };
+
+                    await createOrUpdateFile('rooms_data_1.json', initialData);
+                }
+
+                // Load master file data
+                masterFileData = await getFileContent('master.json');
+            } catch (error) {
+                console.error('Error initializing GitHub storage:', error);
+                throw error;
+            }
+        }
+
+        async function getFileContent(filename) {
+            try {
+                const response = await fetch(GITHUB_API_BASE + filename, {
+                    headers: {
+                        'Authorization': 'token ' + GITHUB_TOKEN,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
                 if (response.ok) {
                     const data = await response.json();
-                    sha = data.sha;
+                    const content = atob(data.content.replace(/\s/g, ''));
+                    return JSON.parse(content);
+                } else if (response.status === 404) {
+                    return null;
+                } else {
+                    throw new Error('Failed to fetch file: ' + response.statusText);
                 }
-            } catch (e) {
-                console.log('Creating new manifest file');
+            } catch (error) {
+                console.error('Error getting file content:', error);
+                throw error;
+            }
+        }
+
+        async function createOrUpdateFile(filename, data, message = null) {
+            try {
+                const content = btoa(JSON.stringify(data, null, 2));
+                const commitMessage = message || `Update ${filename}`;
+
+                // Get current file SHA if it exists
+                let sha = null;
+                try {
+                    const existingFile = await fetch(GITHUB_API_BASE + filename, {
+                        headers: {
+                            'Authorization': 'token ' + GITHUB_TOKEN,
+                            'Accept': 'application/vnd.github.v3+json'
+                        }
+                    });
+                    if (existingFile.ok) {
+                        const existingData = await existingFile.json();
+                        sha = existingData.sha;
+                    }
+                } catch (e) {
+                    // File doesn't exist, that's fine
+                }
+
+                const body = {
+                    message: commitMessage,
+                    content: content
+                };
+
+                if (sha) {
+                    body.sha = sha;
+                }
+
+                const response = await fetch(GITHUB_API_BASE + filename, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': 'token ' + GITHUB_TOKEN,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to update file: ' + response.statusText);
+                }
+
+                return await response.json();
+            } catch (error) {
+                console.error('Error creating/updating file:', error);
+                throw error;
+            }
+        }
+
+        async function getAllData() {
+            const allData = { users: [], rooms: [] };
+            
+            for (const filename of masterFileData.dataFiles) {
+                const fileData = await getFileContent(filename);
+                if (fileData) {
+                    allData.users.push(...fileData.users);
+                    allData.rooms.push(...fileData.rooms);
+                }
             }
 
-            const encodedContent = btoa(JSON.stringify(manifest, null, 2));
+            return allData;
+        }
+
+        async function saveUserData(userData) {
+            try {
+                const currentDataFile = masterFileData.currentDataFile;
+                const fileData = await getFileContent(currentDataFile);
+                
+                // Check file size (approximate - 100MB = 104857600 bytes)
+                const currentSize = JSON.stringify(fileData).length;
+                const MAX_SIZE = 100 * 1024 * 1024; // 100MB
+                
+                if (currentSize > MAX_SIZE) {
+                    // Create new data file
+                    const nextFileNumber = masterFileData.dataFiles.length + 1;
+                    const newFileName = `rooms_data_${nextFileNumber}.json`;
+                    
+                    // Update master file
+                    masterFileData.currentDataFile = newFileName;
+                    masterFileData.dataFiles.push(newFileName);
+                    masterFileData.fileSizes[newFileName] = 0;
+                    masterFileData.lastUpdated = new Date().toISOString();
+                    
+                    await createOrUpdateFile('master.json', masterFileData);
+                    
+                    // Create new data file
+                    const newFileData = {
+                        users: [userData],
+                        rooms: [],
+                        lastUpdated: new Date().toISOString()
+                    };
+                    
+                    await createOrUpdateFile(newFileName, newFileData);
+                } else {
+                    // Add to existing file
+                    const existingUserIndex = fileData.users.findIndex(u => u.id === userData.id);
+                    if (existingUserIndex !== -1) {
+                        fileData.users[existingUserIndex] = userData;
+                    } else {
+                        fileData.users.push(userData);
+                    }
+                    fileData.lastUpdated = new Date().toISOString();
+                    
+                    await createOrUpdateFile(currentDataFile, fileData);
+                }
+            } catch (error) {
+                console.error('Error saving user data:', error);
+                throw error;
+            }
+        }
+
+        async function saveRoomData(roomData) {
+            try {
+                const currentDataFile = masterFileData.currentDataFile;
+                const fileData = await getFileContent(currentDataFile);
+                
+                const existingRoomIndex = fileData.rooms.findIndex(r => r.id === roomData.id);
+                if (existingRoomIndex !== -1) {
+                    fileData.rooms[existingRoomIndex] = roomData;
+                } else {
+                    fileData.rooms.push(roomData);
+                }
+                fileData.lastUpdated = new Date().toISOString();
+                
+                await createOrUpdateFile(currentDataFile, fileData);
+            } catch (error) {
+                console.error('Error saving room data:', error);
+                throw error;
+            }
+        }
+
+        function setupEventListeners() {
+            // Avatar upload
+            document.getElementById('avatarInput').addEventListener('change', handleAvatarUpload);
             
-            await fetch(`https://api.github.com/repos/${config.githubRepo}/contents/master_manifest.json`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `token ${config.githubToken}`,
-                    'Accept': 'application/vnd.github.v3+json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    message: 'Update master manifest',
-                    content: encodedContent,
-                    sha: sha
-                })
+            // Memory image upload
+            document.getElementById('memoryImageInput').addEventListener('change', (e) => {
+                handleImagePreview(e, 'memoryImagePreview');
+            });
+            
+            // Note image upload
+            document.getElementById('noteImageInput').addEventListener('change', (e) => {
+                handleImagePreview(e, 'noteImagePreview');
+            });
+            
+            // Navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', () => navigateTo(item.dataset.page));
             });
         }
 
-        async function loadRoomData() {
-            if (!currentRoom) return;
+        function showTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.auth-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update forms
+            document.querySelectorAll('.auth-form').forEach(form => {
+                form.classList.remove('active');
+            });
+            document.getElementById(tabName + 'Form').classList.add('active');
+        }
+
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const button = input.nextElementSibling;
             
-            showLoading(true);
-            await loadAllRoomsData();
-            
-            if (allRoomsData[currentRoom]) {
-                roomData = allRoomsData[currentRoom];
-                showMainApp();
+            if (input.type === 'password') {
+                input.type = 'text';
+                button.textContent = '🙈';
             } else {
-                showLoading(false);
-                showAlert('Room data not found', 'error');
-                localStorage.removeItem('currentRoom');
-                showRoomManagement();
+                input.type = 'password';
+                button.textContent = '👁️';
             }
         }
 
-        async function saveRoomData() {
-            if (!currentRoom || !roomData) return;
-            
-            allRoomsData[currentRoom] = roomData;
-            await saveAllRoomsData();
+        function handleAvatarUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('avatarPreview');
+                    preview.innerHTML = `<img src="${e.target.result}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+                };
+                reader.readAsDataURL(file);
+            }
         }
 
-        function showMainApp() {
-            showLoading(false);
-            document.getElementById('authScreen').style.display = 'none';
-            document.getElementById('mainNav').classList.add('active');
-            document.getElementById('mainContainer').classList.add('active');
-            
-            // Update user info in nav
-            document.getElementById('userAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
-            document.getElementById('userName').textContent = currentUser.name;
-            document.getElementById('roomInfoDisplay').textContent = `Room: ${currentRoom}`;
-            
-            updateUI();
-            startPeriodicSync();
-        }
-
-        function startPeriodicSync() {
-            // Sync data every 30 seconds
-            setInterval(async () => {
-                if (currentRoom) {
-                    await loadAllRoomsData();
-                    if (allRoomsData[currentRoom]) {
-                        roomData = allRoomsData[currentRoom];
-                        updateUI();
-                    }
-                }
-            }, 30000);
-        }
-
-        function updateUI() {
-            // Update home page
-            document.getElementById('currentRoomCode').textContent = currentRoom;
-            document.getElementById('memberCount').textContent = roomData.members ? roomData.members.length : 1;
-            document.getElementById('roomCreated').textContent = roomData.created ? new Date(roomData.created).toLocaleDateString() : 'Today';
-            
-            // Update notification bell
-            updateNotificationBell();
-            
-            // Update content sections
-            updateMemoriesDisplay();
-            updateLinksDisplay();
-            updateNotesDisplay();
-            updateChatDisplay();
-            updateMembersDisplay();
-            updateRecentActivity();
-        }
-
-        // Image handling
-        function previewImage(input, previewId) {
-            if (input.files && input.files[0]) {
-                const file = input.files[0];
-                
-                if (file.size > 5 * 1024 * 1024) { // 5MB limit
-                    showAlert('Image size must be less than 5MB', 'error');
-                    input.value = '';
-                    return;
-                }
-                
+        function handleImagePreview(event, previewId) {
+            const file = event.target.files[0];
+            if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const preview = document.getElementById(previewId);
@@ -1942,655 +1288,19 @@
             }
         }
 
-        function getImageAsBase64(input) {
-            return new Promise((resolve) => {
-                if (input.files && input.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        resolve(e.target.result);
-                    };
-                    reader.readAsDataURL(input.files[0]);
-                } else {
-                    resolve(null);
-                }
-            });
+        function showLoading() {
+            document.getElementById('loadingOverlay').style.display = 'flex';
         }
 
-        // Content management functions
-        async function addMemory() {
-            const title = document.getElementById('memoryTitle').value.trim();
-            const description = document.getElementById('memoryDescription').value.trim();
-            const date = document.getElementById('memoryDate').value;
-            const imageInput = document.getElementById('memoryImage');
-            
-            if (!title || !description) {
-                showAlert('Please fill in title and description', 'error');
-                return;
-            }
-
-            const imageData = await getImageAsBase64(imageInput);
-
-            const memory = {
-                id: 'memory_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
-                title,
-                description,
-                date: date || new Date().toISOString().split('T')[0],
-                image: imageData,
-                author: currentUser.name,
-                authorId: currentUser.id,
-                created: new Date().toISOString()
-            };
-
-            if (!roomData.memories) roomData.memories = [];
-            
-            if (editingContent && editingContent.type === 'memory') {
-                // Update existing memory
-                const index = roomData.memories.findIndex(m => m.id === editingContent.id);
-                if (index !== -1) {
-                    roomData.memories[index] = { ...memory, id: editingContent.id };
-                }
-                editingContent = null;
-                showAlert('Memory updated successfully!', 'success');
-            } else {
-                // Add new memory
-                roomData.memories.unshift(memory);
-                showAlert('Memory added successfully!', 'success');
-            }
-
-            await saveRoomData();
-            clearMemoryForm();
-            updateMemoriesDisplay();
+        function hideLoading() {
+            document.getElementById('loadingOverlay').style.display = 'none';
         }
 
-        async function addLink() {
-            const title = document.getElementById('linkTitle').value.trim();
-            const url = document.getElementById('linkUrl').value.trim();
-            const description = document.getElementById('linkDescription').value.trim();
-            
-            if (!title || !url) {
-                showAlert('Please fill in title and URL', 'error');
-                return;
-            }
-
-            const link = {
-                id: 'link_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
-                title,
-                url,
-                description,
-                author: currentUser.name,
-                authorId: currentUser.id,
-                created: new Date().toISOString()
-            };
-
-            if (!roomData.links) roomData.links = [];
-            
-            if (editingContent && editingContent.type === 'link') {
-                // Update existing link
-                const index = roomData.links.findIndex(l => l.id === editingContent.id);
-                if (index !== -1) {
-                    roomData.links[index] = { ...link, id: editingContent.id };
-                }
-                editingContent = null;
-                showAlert('Link updated successfully!', 'success');
-            } else {
-                // Add new link
-                roomData.links.unshift(link);
-                showAlert('Link saved successfully!', 'success');
-            }
-
-            await saveRoomData();
-            clearLinkForm();
-            updateLinksDisplay();
-        }
-
-        async function addNote() {
-            const title = document.getElementById('noteTitle').value.trim();
-            const content = document.getElementById('noteContent').value.trim();
-            const imageInput = document.getElementById('noteImage');
-            
-            if (!title || !content) {
-                showAlert('Please fill in title and message', 'error');
-                return;
-            }
-
-            const imageData = await getImageAsBase64(imageInput);
-
-            const note = {
-                id: 'note_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
-                title,
-                content,
-                image: imageData,
-                author: currentUser.name,
-                authorId: currentUser.id,
-                created: new Date().toISOString()
-            };
-
-            if (!roomData.notes) roomData.notes = [];
-            
-            if (editingContent && editingContent.type === 'note') {
-                // Update existing note
-                const index = roomData.notes.findIndex(n => n.id === editingContent.id);
-                if (index !== -1) {
-                    roomData.notes[index] = { ...note, id: editingContent.id };
-                }
-                editingContent = null;
-                showAlert('Note updated successfully!', 'success');
-            } else {
-                // Add new note
-                roomData.notes.unshift(note);
-                showAlert('Note saved successfully!', 'success');
-            }
-
-            await saveRoomData();
-            clearNoteForm();
-            updateNotesDisplay();
-        }
-
-        // Edit and delete functions
-        function editMemory(id) {
-            const memory = roomData.memories.find(m => m.id === id);
-            if (!memory || memory.authorId !== currentUser.id) {
-                showAlert('You can only edit your own memories', 'error');
-                return;
-            }
-
-            document.getElementById('memoryTitle').value = memory.title;
-            document.getElementById('memoryDescription').value = memory.description;
-            document.getElementById('memoryDate').value = memory.date;
-            
-            if (memory.image) {
-                document.getElementById('memoryImagePreview').src = memory.image;
-                document.getElementById('memoryImagePreview').style.display = 'block';
-            }
-
-            editingContent = { type: 'memory', id: id };
-            showPage('memories');
-            showAlert('Edit your memory and click "Add Memory" to save', 'warning');
-        }
-
-        async function deleteMemory(id) {
-            const memory = roomData.memories.find(m => m.id === id);
-            if (!memory || (memory.authorId !== currentUser.id && roomData.admin !== currentUser.id)) {
-                showAlert('You can only delete your own memories or admin can delete any', 'error');
-                return;
-            }
-
-            if (confirm('Are you sure you want to delete this memory?')) {
-                roomData.memories = roomData.memories.filter(m => m.id !== id);
-                await saveRoomData();
-                updateMemoriesDisplay();
-                showAlert('Memory deleted successfully', 'success');
-            }
-        }
-
-        function editNote(id) {
-            const note = roomData.notes.find(n => n.id === id);
-            if (!note || note.authorId !== currentUser.id) {
-                showAlert('You can only edit your own notes', 'error');
-                return;
-            }
-
-            document.getElementById('noteTitle').value = note.title;
-            document.getElementById('noteContent').value = note.content;
-            
-            if (note.image) {
-                document.getElementById('noteImagePreview').src = note.image;
-                document.getElementById('noteImagePreview').style.display = 'block';
-            }
-
-            editingContent = { type: 'note', id: id };
-            showPage('notes');
-            showAlert('Edit your note and click "Save Note" to update', 'warning');
-        }
-
-        async function deleteNote(id) {
-            const note = roomData.notes.find(n => n.id === id);
-            if (!note || (note.authorId !== currentUser.id && roomData.admin !== currentUser.id)) {
-                showAlert('You can only delete your own notes or admin can delete any', 'error');
-                return;
-            }
-
-            if (confirm('Are you sure you want to delete this note?')) {
-                roomData.notes = roomData.notes.filter(n => n.id !== id);
-                await saveRoomData();
-                updateNotesDisplay();
-                showAlert('Note deleted successfully', 'success');
-            }
-        }
-
-        function editLink(id) {
-            const link = roomData.links.find(l => l.id === id);
-            if (!link || link.authorId !== currentUser.id) {
-                showAlert('You can only edit your own links', 'error');
-                return;
-            }
-
-            document.getElementById('linkTitle').value = link.title;
-            document.getElementById('linkUrl').value = link.url;
-            document.getElementById('linkDescription').value = link.description || '';
-
-            editingContent = { type: 'link', id: id };
-            showPage('links');
-            showAlert('Edit your link and click "Save Link" to update', 'warning');
-        }
-
-        async function deleteLink(id) {
-            const link = roomData.links.find(l => l.id === id);
-            if (!link || (link.authorId !== currentUser.id && roomData.admin !== currentUser.id)) {
-                showAlert('You can only delete your own links or admin can delete any', 'error');
-                return;
-            }
-
-            if (confirm('Are you sure you want to delete this link?')) {
-                roomData.links = roomData.links.filter(l => l.id !== id);
-                await saveRoomData();
-                updateLinksDisplay();
-                showAlert('Link deleted successfully', 'success');
-            }
-        }
-
-        // Clear form functions
-        function clearMemoryForm() {
-            document.getElementById('memoryTitle').value = '';
-            document.getElementById('memoryDescription').value = '';
-            document.getElementById('memoryDate').value = '';
-            document.getElementById('memoryImage').value = '';
-            document.getElementById('memoryImagePreview').style.display = 'none';
-            editingContent = null;
-        }
-
-        function clearNoteForm() {
-            document.getElementById('noteTitle').value = '';
-            document.getElementById('noteContent').value = '';
-            document.getElementById('noteImage').value = '';
-            document.getElementById('noteImagePreview').style.display = 'none';
-            editingContent = null;
-        }
-
-        function clearLinkForm() {
-            document.getElementById('linkTitle').value = '';
-            document.getElementById('linkUrl').value = '';
-            document.getElementById('linkDescription').value = '';
-            editingContent = null;
-        }
-
-        async function sendMessage() {
-            const input = document.getElementById('messageInput');
-            const content = input.value.trim();
-            
-            if (!content) return;
-
-            const message = {
-                id: 'msg_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
-                content,
-                author: currentUser.name,
-                authorId: currentUser.id,
-                timestamp: new Date().toISOString(),
-                type: 'message'
-            };
-
-            if (!roomData.messages) roomData.messages = [];
-            roomData.messages.push(message);
-            await saveRoomData();
-            
-            input.value = '';
-            updateChatDisplay();
-        }
-
-        // Member management
-        async function setMemberNickname(memberId, nickname) {
-            if (!nickname.trim()) return;
-            
-            if (!roomData.nicknames) roomData.nicknames = {};
-            if (!roomData.nicknames[currentUser.id]) roomData.nicknames[currentUser.id] = {};
-            
-            roomData.nicknames[currentUser.id][memberId] = nickname.trim();
-            await saveRoomData();
-            updateMembersDisplay();
-            showAlert('Nickname updated!', 'success');
-        }
-
-        function getMemberNickname(memberId) {
-            if (!roomData.nicknames || !roomData.nicknames[currentUser.id]) {
-                return null;
-            }
-            return roomData.nicknames[currentUser.id][memberId] || null;
-        }
-
-        async function removeMember(memberId) {
-            if (roomData.admin !== currentUser.id) {
-                showAlert('Only admin can remove members', 'error');
-                return;
-            }
-
-            if (memberId === currentUser.id) {
-                showAlert('You cannot remove yourself. Use Exit Room instead.', 'error');
-                return;
-            }
-
-            const member = roomData.members.find(m => m.id === memberId);
-            if (!member) return;
-
-            if (confirm(`Are you sure you want to remove ${member.name} from the room?`)) {
-                roomData.members = roomData.members.filter(m => m.id !== memberId);
-                
-                // Add system message
-                roomData.messages.push({
-                    id: 'msg_' + Date.now(),
-                    content: `${member.name} was removed from the room`,
-                    author: 'system',
-                    timestamp: new Date().toISOString(),
-                    type: 'system'
-                });
-                
-                await saveRoomData();
-                updateMembersDisplay();
-                updateUI();
-                showAlert(`${member.name} has been removed from the room`, 'success');
-            }
-        }
-
-        // Display update functions
-        function updateMemoriesDisplay() {
-            const container = document.getElementById('memoriesContainer');
-            
-            if (!roomData.memories || roomData.memories.length === 0) {
-                container.innerHTML = '<div class="empty-state"><h3>No memories yet</h3><p>Add your first special moment!</p></div>';
-                return;
-            }
-
-            container.innerHTML = roomData.memories.map(memory => `
-                <div class="content-item">
-                    <div class="actions">
-                        ${memory.authorId === currentUser.id ? `
-                            <button class="btn-small" onclick="editMemory('${memory.id}')">Edit</button>
-                            <button class="btn-small btn-decline" onclick="deleteMemory('${memory.id}')">Delete</button>
-                        ` : roomData.admin === currentUser.id ? `
-                            <button class="btn-small btn-decline" onclick="deleteMemory('${memory.id}')">Delete</button>
-                        ` : ''}
-                    </div>
-                    <h4>${memory.title}</h4>
-                    <div class="meta">By ${memory.author} on ${new Date(memory.date).toLocaleDateString()}</div>
-                    ${memory.image ? `<img src="${memory.image}" class="image" alt="${memory.title}">` : ''}
-                    <p>${memory.description}</p>
-                </div>
-            `).join('');
-        }
-
-        function updateLinksDisplay() {
-            const container = document.getElementById('linksContainer');
-            
-            if (!roomData.links || roomData.links.length === 0) {
-                container.innerHTML = '<div class="empty-state"><h3>No links yet</h3><p>Save your first shared link!</p></div>';
-                return;
-            }
-
-            container.innerHTML = roomData.links.map(link => `
-                <div class="content-item">
-                    <div class="actions">
-                        ${link.authorId === currentUser.id ? `
-                            <button class="btn-small" onclick="editLink('${link.id}')">Edit</button>
-                            <button class="btn-small btn-decline" onclick="deleteLink('${link.id}')">Delete</button>
-                        ` : roomData.admin === currentUser.id ? `
-                            <button class="btn-small btn-decline" onclick="deleteLink('${link.id}')">Delete</button>
-                        ` : ''}
-                    </div>
-                    <h4><a href="${link.url}" target="_blank" style="color: var(--primary-pink);">${link.title}</a></h4>
-                    <div class="meta">Shared by ${link.author} on ${new Date(link.created).toLocaleDateString()}</div>
-                    ${link.description ? `<p>${link.description}</p>` : ''}
-                </div>
-            `).join('');
-        }
-
-        function updateNotesDisplay() {
-            const container = document.getElementById('notesContainer');
-            
-            if (!roomData.notes || roomData.notes.length === 0) {
-                container.innerHTML = '<div class="empty-state"><h3>No notes yet</h3><p>Write your first sweet message!</p></div>';
-                return;
-            }
-
-            container.innerHTML = roomData.notes.map(note => `
-                <div class="content-item">
-                    <div class="actions">
-                        ${note.authorId === currentUser.id ? `
-                            <button class="btn-small" onclick="editNote('${note.id}')">Edit</button>
-                            <button class="btn-small btn-decline" onclick="deleteNote('${note.id}')">Delete</button>
-                        ` : roomData.admin === currentUser.id ? `
-                            <button class="btn-small btn-decline" onclick="deleteNote('${note.id}')">Delete</button>
-                        ` : ''}
-                    </div>
-                    <h4>${note.title}</h4>
-                    <div class="meta">From ${note.author} on ${new Date(note.created).toLocaleDateString()}</div>
-                    ${note.image ? `<img src="${note.image}" class="image" alt="${note.title}">` : ''}
-                    <p>${note.content}</p>
-                </div>
-            `).join('');
-        }
-
-        function updateChatDisplay() {
-            const container = document.getElementById('chatContainer');
-            
-            if (!roomData.messages || roomData.messages.length === 0) {
-                container.innerHTML = '<div class="empty-state"><h3>No messages yet</h3><p>Start your conversation!</p></div>';
-                return;
-            }
-
-            container.innerHTML = roomData.messages.map(message => {
-                if (message.type === 'system') {
-                    return `<div style="text-align: center; color: var(--text-light); margin: 1rem 0; font-style: italic;">${message.content}</div>`;
-                }
-                
-                const isSent = message.authorId === currentUser.id;
-                return `
-                    <div class="chat-message ${isSent ? 'message-sent' : 'message-received'}">
-                        <p>${message.content}</p>
-                        <small>${message.author} - ${new Date(message.timestamp).toLocaleTimeString()}</small>
-                    </div>
-                `;
-            }).join('');
-            
-            container.scrollTop = container.scrollHeight;
-        }
-
-        function updateMembersDisplay() {
-            const container = document.getElementById('membersContainer');
-            
-            if (!roomData.members || roomData.members.length === 0) {
-                container.innerHTML = '<div class="empty-state"><h3>No members</h3><p>Something went wrong!</p></div>';
-                return;
-            }
-
-            container.innerHTML = roomData.members.map(member => {
-                const nickname = getMemberNickname(member.id);
-                const isAdmin = member.id === roomData.admin;
-                const canRemove = roomData.admin === currentUser.id && member.id !== currentUser.id;
-                
-                return `
-                    <div class="member-item">
-                        <div class="member-info">
-                            <div class="member-avatar">${member.name.charAt(0).toUpperCase()}</div>
-                            <div class="member-details">
-                                <h4>
-                                    ${member.name} 
-                                    ${isAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}
-                                </h4>
-                                <p>@${member.username}</p>
-                                ${nickname ? `<div class="member-nickname">Your nickname: ${nickname}</div>` : ''}
-                                <p style="font-size: 0.8rem; color: var(--text-light);">
-                                    Joined ${new Date(member.joinedAt).toLocaleDateString()}
-                                </p>
-                            </div>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                            ${member.id !== currentUser.id ? `
-                                <input type="text" placeholder="Set nickname..." 
-                                       value="${nickname || ''}"
-                                       style="padding: 0.3rem; border-radius: 5px; border: 1px solid var(--text-light);"
-                                       onkeypress="if(event.key==='Enter') setMemberNickname('${member.id}', this.value)">
-                                <button class="btn-small" onclick="setMemberNickname('${member.id}', this.previousElementSibling.value)">
-                                    Set Nickname
-                                </button>
-                            ` : ''}
-                            ${canRemove ? `
-                                <button class="btn-small btn-decline" onclick="removeMember('${member.id}')">
-                                    Remove
-                                </button>
-                            ` : ''}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function updateRecentActivity() {
-            const container = document.getElementById('activityList');
-            const activities = [];
-            
-            // Collect recent activities from all types
-            if (roomData.memories) {
-                roomData.memories.slice(0, 3).forEach(memory => {
-                    activities.push({
-                        type: 'memory',
-                        text: `${memory.author} added memory: "${memory.title}"`,
-                        time: memory.created
-                    });
-                });
-            }
-            
-            if (roomData.notes) {
-                roomData.notes.slice(0, 3).forEach(note => {
-                    activities.push({
-                        type: 'note',
-                        text: `${note.author} wrote: "${note.title}"`,
-                        time: note.created
-                    });
-                });
-            }
-            
-            if (roomData.links) {
-                roomData.links.slice(0, 3).forEach(link => {
-                    activities.push({
-                        type: 'link',
-                        text: `${link.author} shared: "${link.title}"`,
-                        time: link.created
-                    });
-                });
-            }
-
-            if (activities.length === 0) {
-                container.innerHTML = '<div class="empty-state"><h3>No activity yet</h3><p>Start by adding your first memory, note, or link!</p></div>';
-                return;
-            }
-
-            // Sort by time and take the 5 most recent
-            activities.sort((a, b) => new Date(b.time) - new Date(a.time));
-            
-            container.innerHTML = activities.slice(0, 5).map(activity => `
-                <p style="margin: 0.5rem 0;">📝 ${activity.text}</p>
-            `).join('');
-        }
-
-        // Settings functions
-        function openSettings() {
-            document.getElementById('settingsModal').classList.add('active');
-            document.getElementById('displayName').value = currentUser.name;
-            
-            if (roomData.admin === currentUser.id) {
-                document.getElementById('adminControls').style.display = 'block';
-            }
-        }
-
-        function closeSettings() {
-            document.getElementById('settingsModal').classList.remove('active');
-        }
-
-        async function saveSettings() {
-            const newDisplayName = document.getElementById('displayName').value.trim();
-            
-            if (newDisplayName && newDisplayName !== currentUser.name) {
-                currentUser.name = newDisplayName;
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                
-                // Update user in room data
-                const memberIndex = roomData.members.findIndex(m => m.id === currentUser.id);
-                if (memberIndex !== -1) {
-                    roomData.members[memberIndex].name = newDisplayName;
-                    await saveRoomData();
-                }
-                
-                // Update UI
-                document.getElementById('userName').textContent = newDisplayName;
-                updateUI();
-            }
-            
-            closeSettings();
-            showAlert('Settings saved successfully!', 'success');
-        }
-
-        function toggleCustomGitHub() {
-            const checkbox = document.getElementById('useCustomGitHub');
-            const config = document.getElementById('customGitHubConfig');
-            
-            config.style.display = checkbox.checked ? 'block' : 'none';
-        }
-
-        async function migrateToCustomGitHub() {
-            const repo = document.getElementById('customGitHubRepo').value.trim();
-            const token = document.getElementById('customGitHubToken').value.trim();
-            
-            if (!repo || !token) {
-                showAlert('Please fill in both GitHub repository and token', 'error');
-                return;
-            }
-            
-            showAlert('Custom GitHub migration is not implemented in this demo', 'warning');
-        }
-
-        async function deleteRoom() {
-            if (confirm('Are you sure you want to delete this entire room? This action cannot be undone!')) {
-                delete allRoomsData[currentRoom];
-                await saveAllRoomsData();
-                
-                localStorage.removeItem('currentRoom');
-                currentRoom = null;
-                roomData = {};
-                
-                closeSettings();
-                document.getElementById('mainContainer').classList.remove('active');
-                document.getElementById('mainNav').classList.remove('active');
-                document.getElementById('authScreen').style.display = 'flex';
-                showRoomManagement();
-                
-                showAlert('Room deleted successfully', 'success');
-            }
-        }
-
-        function exportData() {
-            const dataToExport = {
-                user: currentUser,
-                room: roomData,
-                exportedAt: new Date().toISOString()
-            };
-            
-            const dataStr = JSON.stringify(dataToExport, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(dataBlob);
-            link.download = `our-space-data-${currentRoom}-${new Date().toISOString().split('T')[0]}.json`;
-            link.click();
-            
-            showAlert('Data exported successfully!', 'success');
-        }
-
-        // Utility functions
-        function showAlert(message, type) {
+        function showAlert(message, type = 'error') {
             const alertContainer = document.getElementById('alertContainer');
             const alert = document.createElement('div');
             alert.className = `alert ${type}`;
             alert.textContent = message;
-            
             alertContainer.appendChild(alert);
             
             setTimeout(() => {
@@ -2598,78 +1308,512 @@
             }, 5000);
         }
 
-        function showLoading(show) {
-            document.getElementById('loadingOverlay').style.display = show ? 'flex' : 'none';
-        }
-
-        function setupEventListeners() {
-            // Navigation
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    const targetPage = item.getAttribute('data-page');
-                    showPage(targetPage);
-                    
-                    // Update nav active state
-                    document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-                    item.classList.add('active');
-                });
-            });
-
-            // Enter key support for chat
-            document.getElementById('messageInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    sendMessage();
-                }
-            });
-
-            // Enter key for room code input
-            document.getElementById('roomCodeInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    requestJoinRoom();
-                }
-            });
-
-            // Enter key for auth forms
-            document.getElementById('loginPassword').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    signIn();
-                }
-            });
-
-            document.getElementById('registerConfirmPassword').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    register();
-                }
-            });
-
-            // Close dropdowns when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.notification-bell')) {
-                    document.getElementById('notificationDropdown').classList.remove('active');
-                }
-            });
-
-            // Close modals when clicking outside
-            document.querySelectorAll('.modal').forEach(modal => {
-                modal.addEventListener('click', function(e) {
-                    if (e.target === modal) {
-                        modal.classList.remove('active');
-                    }
-                });
-            });
-        }
-
-        function showPage(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+        async function registerUser() {
+            const email = document.getElementById('registerEmail').value.trim();
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const displayName = document.getElementById('displayName').value.trim();
             
-            // Show target page
-            document.getElementById(pageId).classList.add('active');
+            // Validation
+            if (!email || !password || !confirmPassword || !displayName) {
+                showAlert('Please fill in all fields');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showAlert('Passwords do not match');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showAlert('Password must be at least 6 characters long');
+                return;
+            }
+            
+            showLoading();
+            
+            try {
+                // Check if user already exists
+                const allData = await getAllData();
+                if (allData.users.find(user => user.email === email)) {
+                    throw new Error('An account with this email already exists');
+                }
+                
+                // Get avatar data
+                const avatarInput = document.getElementById('avatarInput');
+                let avatarData = null;
+                if (avatarInput.files[0]) {
+                    avatarData = await fileToBase64(avatarInput.files[0]);
+                }
+                
+                // Create new user
+                const newUser = {
+                    id: generateUserId(),
+                    email: email,
+                    password: await hashPassword(password),
+                    displayName: displayName,
+                    avatar: avatarData,
+                    createdAt: new Date().toISOString(),
+                    rooms: [],
+                    nicknames: {} // Store nicknames given to other users
+                };
+                
+                // Save user to GitHub
+                await saveUserData(newUser);
+                
+                // Login the user
+                currentUser = newUser;
+                
+                showAlert('Account created successfully!', 'success');
+                showRoomManagement();
+                
+            } catch (error) {
+                showAlert(error.message);
+            } finally {
+                hideLoading();
+            }
         }
 
-        // Mock GitHub config for demo (would be handled by server in real app)
-        config.githubRepo = 'demo-user/our-space-data';
-        config.githubToken = 'demo_token_123';
-    </script>
-</body>
-</html>
+        async function loginUser() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!email || !password) {
+                showAlert('Please enter both email and password');
+                return;
+            }
+            
+            showLoading();
+            
+            try {
+                const allData = await getAllData();
+                const user = allData.users.find(u => u.email === email);
+                
+                if (!user) {
+                    throw new Error('No account found with this email address');
+                }
+                
+                const passwordHash = await hashPassword(password);
+                if (user.password !== passwordHash) {
+                    throw new Error('Invalid password');
+                }
+                
+                // Login successful
+                currentUser = user;
+                
+                showAlert('Login successful!', 'success');
+                
+                // Check if user is already in a room
+                if (user.rooms && user.rooms.length > 0) {
+                    const userRoom = allData.rooms.find(r => r.members.some(m => m.userId === user.id));
+                    if (userRoom) {
+                        currentRoom = userRoom;
+                        enterRoom();
+                        return;
+                    }
+                }
+                
+                showRoomManagement();
+                
+            } catch (error) {
+                showAlert(error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function checkExistingSession() {
+            // In a real app, you'd check for stored session tokens
+            // For now, we'll just show the auth screen
+        }
+
+        function showRoomManagement() {
+            document.querySelectorAll('.auth-form').forEach(form => {
+                form.style.display = 'none';
+            });
+            document.querySelector('.auth-tabs').style.display = 'none';
+            document.getElementById('roomManagement').style.display = 'block';
+        }
+
+        function showCreateRoom() {
+            document.getElementById('createRoomContainer').classList.add('active');
+            document.getElementById('joinRoomContainer').classList.remove('active');
+            
+            // Generate room code
+            const roomCode = generateRoomCode();
+            document.getElementById('roomCodeDisplay').textContent = roomCode;
+        }
+
+        function showJoinRoom() {
+            document.getElementById('joinRoomContainer').classList.add('active');
+            document.getElementById('createRoomContainer').classList.remove('active');
+        }
+
+        async function createRoom() {
+            const roomCode = document.getElementById('roomCodeDisplay').textContent;
+            
+            showLoading();
+            
+            try {
+                // Get current global counter
+                const currentDataFile = masterFileData.currentDataFile;
+                const fileData = await getFileContent(currentDataFile);
+                const roomCounter = fileData.globalRoomCounter || 1000;
+                
+                const newRoom = {
+                    id: 'room_' + roomCounter,
+                    code: roomCode,
+                    adminId: currentUser.id,
+                    adminEmail: currentUser.email,
+                    members: [{
+                        userId: currentUser.id,
+                        email: currentUser.email,
+                        displayName: currentUser.displayName,
+                        avatar: currentUser.avatar,
+                        role: 'admin',
+                        nickname: currentUser.displayName,
+                        joinedAt: new Date().toISOString()
+                    }],
+                    createdAt: new Date().toISOString(),
+                    joinRequests: [],
+                    memories: [],
+                    notes: []
+                };
+                
+                // Update global counter
+                fileData.globalRoomCounter = roomCounter + 1;
+                
+                // Save room
+                await saveRoomData(newRoom);
+                
+                // Update user's rooms
+                currentUser.rooms.push(newRoom.id);
+                await saveUserData(currentUser);
+                
+                currentRoom = newRoom;
+                
+                showAlert('Room created successfully!', 'success');
+                enterRoom();
+                
+            } catch (error) {
+                showAlert(error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function requestToJoin() {
+            const roomCode = document.getElementById('roomCodeInput').value.trim().toUpperCase();
+            
+            if (!roomCode) {
+                showAlert('Please enter a room code');
+                return;
+            }
+            
+            showLoading();
+            
+            try {
+                // Check if user is already in a room
+                if (currentUser.rooms && currentUser.rooms.length > 0) {
+                    throw new Error('You can only be in one room at a time. Please leave your current room first.');
+                }
+                
+                const allData = await getAllData();
+                const room = allData.rooms.find(r => r.code === roomCode);
+                
+                if (!room) {
+                    throw new Error('Room not found. Please check the room code.');
+                }
+                
+                // Check if user is already a member
+                if (room.members.find(m => m.userId === currentUser.id)) {
+                    throw new Error('You are already a member of this room');
+                }
+                
+                // Check if there's already a pending request
+                if (room.joinRequests.find(r => r.userId === currentUser.id)) {
+                    throw new Error('You already have a pending join request for this room');
+                }
+                
+                // Add join request
+                room.joinRequests.push({
+                    userId: currentUser.id,
+                    email: currentUser.email,
+                    displayName: currentUser.displayName,
+                    avatar: currentUser.avatar,
+                    requestedAt: new Date().toISOString()
+                });
+                
+                await saveRoomData(room);
+                
+                document.getElementById('joinRequestStatus').style.display = 'block';
+                document.getElementById('joinSubmitBtn').disabled = true;
+                
+                showAlert('Join request sent! Waiting for admin approval.', 'success');
+                
+                // Start checking for approval
+                startJoinRequestCheck(room.id);
+                
+            } catch (error) {
+                showAlert(error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        function startJoinRequestCheck(roomId) {
+            if (joinRequestCheckInterval) {
+                clearInterval(joinRequestCheckInterval);
+            }
+            
+            joinRequestCheckInterval = setInterval(async () => {
+                try {
+                    const allData = await getAllData();
+                    const room = allData.rooms.find(r => r.id === roomId);
+                    
+                    if (room) {
+                        const member = room.members.find(m => m.userId === currentUser.id);
+                        if (member) {
+                            // Request approved!
+                            clearInterval(joinRequestCheckInterval);
+                            currentRoom = room;
+                            currentUser.rooms = [roomId];
+                            await saveUserData(currentUser);
+                            
+                            showAlert('Join request approved! Welcome to the room!', 'success');
+                            enterRoom();
+                            showIntroModal();
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error checking join request:', error);
+                }
+            }, 3000); // Check every 3 seconds
+        }
+
+        async function cancelJoinRequest() {
+            showLoading();
+            
+            try {
+                const allData = await getAllData();
+                const room = allData.rooms.find(r => r.joinRequests.some(req => req.userId === currentUser.id));
+                
+                if (room) {
+                    room.joinRequests = room.joinRequests.filter(req => req.userId !== currentUser.id);
+                    await saveRoomData(room);
+                }
+                
+                document.getElementById('joinRequestStatus').style.display = 'none';
+                document.getElementById('joinSubmitBtn').disabled = false;
+                
+                if (joinRequestCheckInterval) {
+                    clearInterval(joinRequestCheckInterval);
+                }
+                
+                showAlert('Join request cancelled', 'warning');
+                
+            } catch (error) {
+                showAlert(error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        function enterRoom() {
+            document.getElementById('authScreen').style.display = 'none';
+            document.getElementById('mainNav').classList.add('active');
+            document.getElementById('mainContainer').classList.add('active');
+            
+            // Update nav user info
+            document.getElementById('userNameNav').textContent = currentUser.displayName;
+            if (currentUser.avatar) {
+                document.getElementById('userAvatar').src = currentUser.avatar;
+            }
+            
+            // Load room data
+            loadMemories();
+            loadNotes();
+            loadMembers();
+            
+            // Start checking for join requests if admin
+            if (currentRoom.adminId === currentUser.id) {
+                startAdminNotificationCheck();
+            }
+        }
+
+        function navigateTo(page) {
+            // Update active nav item
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`[data-page="${page}"]`).classList.add('active');
+            
+            // Show corresponding page
+            document.querySelectorAll('.page').forEach(p => {
+                p.classList.remove('active');
+            });
+            document.getElementById(page).classList.add('active');
+            
+            // Load page-specific data
+            if (page === 'members') {
+                loadMembers();
+            } else if (page === 'memories') {
+                loadMemories();
+            } else if (page === 'notes') {
+                loadNotes();
+            }
+        }
+
+        async function loadMemories() {
+            const memoryGrid = document.getElementById('memoryGrid');
+            memoryGrid.innerHTML = '';
+            
+            if (!currentRoom.memories || currentRoom.memories.length === 0) {
+                memoryGrid.innerHTML = '<p style="text-align: center; color: var(--text-light);">No memories yet. Create your first memory!</p>';
+                return;
+            }
+            
+            currentRoom.memories.forEach(memory => {
+                const memoryCard = createMemoryCard(memory);
+                memoryGrid.appendChild(memoryCard);
+            });
+        }
+
+        function createMemoryCard(memory) {
+            const card = document.createElement('div');
+            card.className = 'memory-card';
+            
+            const authorName = getDisplayName(memory.authorId);
+            
+            card.innerHTML = `
+                ${memory.image ? `<img src="${memory.image}" alt="${memory.title}" class="memory-image">` : ''}
+                <h4>${memory.title}</h4>
+                <p>${memory.description}</p>
+                <div class="memory-meta">
+                    <span>By ${authorName}</span>
+                    <span>${formatDate(memory.createdAt)}</span>
+                    <div class="action-buttons">
+                        ${memory.authorId === currentUser.id ? `
+                            <button class="action-btn" onclick="editMemory('${memory.id}')" title="Edit">✏️</button>
+                            <button class="action-btn" onclick="deleteMemory('${memory.id}')" title="Delete">🗑️</button>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        async function loadNotes() {
+            const noteGrid = document.getElementById('noteGrid');
+            noteGrid.innerHTML = '';
+            
+            if (!currentRoom.notes || currentRoom.notes.length === 0) {
+                noteGrid.innerHTML = '<p style="text-align: center; color: var(--text-light);">No notes yet. Write your first sweet note!</p>';
+                return;
+            }
+            
+            currentRoom.notes.forEach(note => {
+                const noteCard = createNoteCard(note);
+                noteGrid.appendChild(noteCard);
+            });
+        }
+
+        function createNoteCard(note) {
+            const card = document.createElement('div');
+            card.className = 'note-card';
+            
+            const authorName = getDisplayName(note.authorId);
+            
+            card.innerHTML = `
+                <h4>${note.title}</h4>
+                <p>${note.content}</p>
+                ${note.image ? `<img src="${note.image}" alt="Note image" style="width: 100%; margin-top: 1rem; border-radius: 10px;">` : ''}
+                <div class="note-meta">
+                    <span>From ${authorName}</span>
+                    <span>${formatDate(note.createdAt)}</span>
+                    <div class="action-buttons">
+                        ${note.authorId === currentUser.id ? `
+                            <button class="action-btn" onclick="editNote('${note.id}')" title="Edit">✏️</button>
+                            <button class="action-btn" onclick="deleteNote('${note.id}')" title="Delete">🗑️</button>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        async function loadMembers() {
+            const membersList = document.getElementById('membersList');
+            const joinRequestsList = document.getElementById('joinRequestsList');
+            
+            membersList.innerHTML = '';
+            joinRequestsList.innerHTML = '';
+            
+            // Load members
+            currentRoom.members.forEach(member => {
+                const memberCard = createMemberCard(member);
+                membersList.appendChild(memberCard);
+            });
+            
+            // Load join requests (only for admin)
+            if (currentRoom.adminId === currentUser.id && currentRoom.joinRequests.length > 0) {
+                currentRoom.joinRequests.forEach(request => {
+                    const requestCard = createJoinRequestCard(request);
+                    joinRequestsList.appendChild(requestCard);
+                });
+            } else {
+                joinRequestsList.innerHTML = '<p style="text-align: center; color: var(--text-light);">No pending join requests</p>';
+            }
+        }
+
+        function createMemberCard(member) {
+            const card = document.createElement('div');
+            card.className = 'member-card';
+            
+            const isCurrentUser = member.userId === currentUser.id;
+            const currentNickname = currentUser.nicknames && currentUser.nicknames[member.userId] ? currentUser.nicknames[member.userId] : member.displayName;
+            
+            card.innerHTML = `
+                <img src="${member.avatar || 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23e0e0e0"/><text x="50" y="60" font-size="40" text-anchor="middle">👤</text></svg>'}" alt="${member.displayName}" class="member-avatar">
+                <div class="member-info">
+                    <div class="member-name">${currentNickname}</div>
+                    <div class="member-role">${member.role === 'admin' ? '👑 Admin' : '👥 Member'} • Joined ${formatDate(member.joinedAt)}</div>
+                </div>
+                ${!isCurrentUser ? `
+                    <input type="text" class="nickname-input" placeholder="Set nickname..." value="${currentNickname !== member.displayName ? currentNickname : ''}" onblur="updateNickname('${member.userId}', this.value)">
+                ` : ''}
+                ${currentRoom.adminId === currentUser.id && !isCurrentUser ? `
+                    <button class="btn danger small" onclick="removeMember('${member.userId}')">Remove</button>
+                ` : ''}
+            `;
+            
+            return card;
+        }
+
+        function createJoinRequestCard(request) {
+            const card = document.createElement('div');
+            card.className = 'member-card';
+            
+            card.innerHTML = `
+                <img src="${request.avatar || 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23e0e0e0"/><text x="50" y="60" font-size="40" text-anchor="middle">👤</text></svg>'}" alt="${request.displayName}" class="member-avatar">
+                <div class="member-info">
+                    <div class="member-name">${request.displayName}</div>
+                    <div class="member-role">Requested ${formatDate(request.requestedAt)}</div>
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn primary small" onclick="approveJoinRequest('${request.userId}')">Approve</button>
+                    <button class="btn danger small" onclick="rejectJoinRequest('${request.userId}')">Reject</button>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        async function approveJoinRequest(userId) {
+            showLoading();
+            
+            try {
+                const request = currentRoom.joinRequests.find(r => r.userId === userId);
+                if
